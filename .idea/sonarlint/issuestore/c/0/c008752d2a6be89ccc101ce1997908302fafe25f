@@ -1,0 +1,9 @@
+
+v
+java:S1128"TRemove this unnecessary import: same package classes are always implicitly imported.(“Ëîùÿÿÿÿ8‡û«äğ1
+K
+java:S1128".Remove this unused import 'java.util.Objects'.(¼¸õ›8å“ªÔñ1
+R
+java:S1128"0Remove this unused import 'service.TaskManager'.(ôÿÆ±şÿÿÿÿ8±Éš…ó1
+H
+java:S2160"+Override the "equals" method in this class.(« À8°°Ïıò1
