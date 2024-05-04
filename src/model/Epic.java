@@ -7,13 +7,14 @@ import java.util.Objects;
 
 public class Epic extends Task {
 
-public  ArrayList<SubTask> subTasks = new ArrayList<>(); // Set
+
+    private ArrayList<SubTask> subTasks = new ArrayList<>(); // Set
 
     private int seq = 0;
 
 public Epic(String name, String description) {
 
-    super(name, Status.IN_PROGRESS, description);
+    super(name, description);
 
 }
 
@@ -23,7 +24,7 @@ public ArrayList<SubTask> getSubTasks() {
     return subTasks;
 }
 
-public void addTask(SubTask subTask) {
+    public void setSubTasks(SubTask subTask) {
     subTasks.add(subTask);
 
 }
@@ -40,7 +41,8 @@ public void removeSubTask(SubTask subTask) {     // Set
         return id;
     }
 
-public void updateStatus() {
+
+    public void updateStatus() {
 
     status = Status.NEW;
 

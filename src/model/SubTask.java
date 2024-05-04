@@ -9,15 +9,15 @@ public class SubTask extends Task {
 
     private Epic epic;
 
-    public SubTask(String name, Status status, String description) {
+    public SubTask(String name, String description) {
 
-        super(name, status, description);
+        super(name, description);
 
     }
 
-    public SubTask(int id, String name, Status status, String description, Epic epic) {
+    public SubTask(int id, String name, String description, Epic epic) {
 
-        super(id, name, status, description);
+        super(id, name, description);
 
         this.epic = epic;
 
@@ -35,11 +35,6 @@ public class SubTask extends Task {
 
         }
 
-    public void updateStatus() {
-
-        status = Status.IN_PROGRESS;
-
-    }
 
 }
 

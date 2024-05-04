@@ -19,6 +19,7 @@ public class TaskManager {
 
     private int seq = 0;
 
+
     public TaskManager() {
         this.tasks = new HashMap<>();
         this.epics = new HashMap<>();
@@ -93,7 +94,7 @@ public Epic createEpic(Epic epic) {
 
     public SubTask createSubTask(SubTask subTask) {
         Epic epic = epics.get(subTask.getEpic().getId());
-        epic.addTask(subTask);
+        epic.setSubTasks(subTask);
         epic.updateStatus();
         return subTask;
     }
@@ -101,12 +102,13 @@ public Epic createEpic(Epic epic) {
     public void updateSubTask(SubTask subTask) {
 
         Epic epic = subTask.getEpic();
+
         Epic savedEpic = epics.get(epic.getId());
         if (savedEpic == null) {
             return;
         }
 
-        calculateStatus(savedEpic);
+        calculateStatus(savedEpic, subTask);
         savedEpic.updateStatus();
     }
 
@@ -133,15 +135,29 @@ public Epic createEpic(Epic epic) {
         Epic epicSaved = epics.get(epic.getId());
 
         epicSaved.getSubTasks().remove(removeSubTask);
-        calculateStatus(epicSaved);
+        calculateStatus(epicSaved, removeSubTask);
 
     }
 
-  private void calculateStatus(Epic epic) {
-        Status status = Status.NEW;
-        epic.setStatus(status);
+    public void calculateStatus(Epic epic, SubTask subTask) {
+
+
+        if (subTask.getStatus(Status.NEW).equals(Status.NEW) || (subTask.getStatus(Status.NEW).equals(Status.NEW))) {
+
+            epic.setStatus(Status.NEW);
+
+        } else if (subTask.getStatus(Status.NEW).equals(Status.NEW) || (subTask.getStatus(Status.IN_PROGRESS).equals(Status.IN_PROGRESS))) {
+
+            epic.setStatus(Status.IN_PROGRESS);
+
+        } else if (subTask.getStatus(Status.DONE).equals(Status.DONE) || (subTask.getStatus(Status.IN_PROGRESS).equals(Status.IN_PROGRESS))) {
+
+            epic.setStatus(Status.IN_PROGRESS);
+
+        } else if (subTask.getStatus(Status.DONE).equals(Status.DONE) || (subTask.getStatus(Status.DONE).equals(Status.DONE))) {
+
+            epic.setStatus(Status.DONE);
+
+        }
     }
-
-
-
 }

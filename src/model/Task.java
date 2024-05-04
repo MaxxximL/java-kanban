@@ -10,27 +10,23 @@ public class Task {
     protected Status status;
     private String description;
 
-    public Task(int id, String name, Status status, String description) {
+    public Task(int id, String name, String description) {
 
         this.id = id;
         this.name = name;
-        this.status = status;
+        this.status = Status.NEW;
         this.description = description;
 
     }
 
-    public Task(String name, Status status, String description) {
+    public Task(String name, String description) {
 
         this.name = name;
-        this.status = status;
+        this.status = Status.NEW;
         this.description = description;
 
     }
 
-    public Epic createEpic() {
-
-        return null;
-    }
 
     public Epic getEpic() {
         return null;

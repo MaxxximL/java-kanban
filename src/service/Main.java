@@ -18,14 +18,12 @@ public class Main {
         TaskManager taskManager = new TaskManager();
 
 
-
-        Task task = taskManager.create(new Task(4, "Новая задача", Status.NEW, "Описание"));
+        Task task = taskManager.create(new Task(4, "Новая задача", "Описание"));
 
         System.out.println("Create task: " + task);
 
 
-
-        Task task1 = taskManager.create(new Task(10, "Новая задача", Status.NEW, "Описание"));
+        Task task1 = taskManager.create(new Task(10, "Новая задача", "Описание"));
 
         System.out.println("Create task: " + task1);
 
@@ -81,17 +79,18 @@ public class Main {
         System.out.println("Список всех эпиков: " + epicArrayList);
 
 
-
-
-
-        SubTask subTask = taskManager.createSubTask(new SubTask(9,"Новая подзадача", Status.NEW, "Описание подзадачи", epic));
+        SubTask subTask = taskManager.createSubTask(new SubTask(1, "Новая подзадача", "Описание подзадачи", epic));
         System.out.println("Create subTask " + subTask);
 
 
+        taskManager.createSubTask(new SubTask(2, "Новая подзадача", "Описание подзадачи", epic));
+        System.out.println("Create subTask " + subTask);
 
-        subTask.updateStatus();
 
-        taskManager.updateSubTask(new SubTask(subTask.setId(99),"Новая подзадача", Status.IN_PROGRESS, "Описание подзадачи", epic)); ///
+        taskManager.updateSubTask(new SubTask(subTask.setId(99), "Новая подзадача", "Описание подзадачи", epic));
+
+
+
         System.out.println("Update SubTask " + subTask);
 
 
@@ -110,7 +109,6 @@ public class Main {
 
         taskManager.deleteEpic(epic.setId(0));
         System.out.println("Delete Epic " + epic);
-
 
 
     }
