@@ -1,25 +1,12 @@
 
-U	java:S106 "9Replace this use of System.out or System.err by a logger.(Ô·Ñ¹8“Œ”¦ó1
-Z	java:S1068"9Replace this use of System.out or System.err by a logger.(şâ¤Ùúÿÿÿÿ8“Œ”¦ó1
-Z	java:S106+"9Replace this use of System.out or System.err by a logger.(±‚·ëøÿÿÿÿ8“Œ”¦ó1
-Z	java:S106"9Replace this use of System.out or System.err by a logger.(¹ïìÓıÿÿÿÿ8“Œ”¦ó1
-Z	java:S106W"9Replace this use of System.out or System.err by a logger.(¡ø¿æûÿÿÿÿ8ÎöŠ ô1
-U	java:S106K"9Replace this use of System.out or System.err by a logger.(ı§ĞÊ8Ş¥§ó1
-Z	java:S106o"9Replace this use of System.out or System.err by a logger.(¹˜Ûüúÿÿÿÿ8“Œ”¦ó1
+U	java:S106+"9Replace this use of System.out or System.err by a logger.(ÃÜ²8ËÂÉõ1
+U	java:S106""9Replace this use of System.out or System.err by a logger.(ÃÜ²8ò‚’Åõ1
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(şâ¤Ùúÿÿÿÿ8ò‚’Åõ1
+M
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8™Ïõ1
 n
-java:S1192"QDefine a constant instead of duplicating this literal "ĞĞ¿Ğ¸ÑĞ°Ğ½Ğ¸Ğµ" 3 times.(ğÌ¾–8“Œ”¦ó1
-€
-java:S1192R"^Define a constant instead of duplicating this literal "ĞĞ¾Ğ²Ğ°Ñ Ğ¿Ğ¾Ğ´Ğ·Ğ°Ğ´Ğ°Ñ‡Ğ°" 3 times.(‘ŞÕ¨ÿÿÿÿÿ8ÛÓ›ô1
-Z	java:S106'"9Replace this use of System.out or System.err by a logger.(âãÃÕşÿÿÿÿ8“Œ”¦ó1
-U	java:S106="9Replace this use of System.out or System.err by a logger.(¸­í¯8“Œ”¦ó1
-Z	java:S106O"9Replace this use of System.out or System.err by a logger.(¾ÎÓèüÿÿÿÿ8Ş¥§ó1
-†
-java:S1192R"dDefine a constant instead of duplicating this literal "ĞĞ¿Ğ¸ÑĞ°Ğ½Ğ¸Ğµ Ğ¿Ğ¾Ğ´Ğ·Ğ°Ğ´Ğ°Ñ‡Ğ¸" 3 times.(‘ŞÕ¨ÿÿÿÿÿ8ÛÓ›ô1
-U	java:S106j"9Replace this use of System.out or System.err by a logger.(û¥ßı8“Œ”¦ó1
-Z	java:S106@"9Replace this use of System.out or System.err by a logger.(¤ ÔÒüÿÿÿÿ8“Œ”¦ó1
-U	java:S106f"9Replace this use of System.out or System.err by a logger.(•ÿÅì8“Œ”¦ó1
-Z	java:S106S"9Replace this use of System.out or System.err by a logger.(¡ø¿æûÿÿÿÿ8Ş¥§ó1
-Z	java:S106."9Replace this use of System.out or System.err by a logger.(İòš›øÿÿÿÿ8“Œ”¦ó1
-T	java:S1061"9Replace this use of System.out or System.err by a logger.(ŸßP8“Œ”¦ó1
-U	java:S106^"9Replace this use of System.out or System.err by a logger.(ÖÑÜ8“Œ”¦ó1
-Z	java:S106"9Replace this use of System.out or System.err by a logger.(õã¿ìûÿÿÿÿ8“Œ”¦ó1
+java:S1192"QDefine a constant instead of duplicating this literal "ĞĞ¿Ğ¸ÑĞ°Ğ½Ğ¸Ğµ" 3 times.(îöõ8ò‚’Åõ1
+Z	java:S106;"9Replace this use of System.out or System.err by a logger.(¹˜Ûüúÿÿÿÿ8á€œÏõ1
+C
+java:S1128"'Remove this unused import 'model.Task'.(æÏñ|8ò‚’Åõ1
+U	java:S1064"9Replace this use of System.out or System.err by a logger.(ÃÜ²8­¡öÎõ1

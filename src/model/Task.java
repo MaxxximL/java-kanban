@@ -10,11 +10,11 @@ public class Task {
     protected Status status;
     private String description;
 
-    public Task(int id, String name, String description) {
+    public Task(int id, String name, Status status, String description) {
 
         this.id = id;
         this.name = name;
-        this.status = Status.NEW;
+        this.status = status;
         this.description = description;
 
     }
@@ -34,14 +34,14 @@ public class Task {
     }
 
     public int getId() {
-     return id;
+        return id;
 
     }
 
     public int setId(int id) {
 
         this.id = id;
-return id;
+        return id;
     }
 
     public String getName() {
@@ -64,7 +64,7 @@ return id;
     }
 
     public String getDescription() {
-       return description;
+        return description;
 
     }
 
@@ -85,9 +85,9 @@ return id;
         Task task = (Task) o;
         return id == task.id;
 
-        }
+    }
 
-        @Override
+    @Override
     public String toString() {
         return "Task{" +
                 "id=" + id +

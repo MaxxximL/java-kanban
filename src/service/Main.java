@@ -5,110 +5,61 @@ import model.Epic;
 import model.Task;
 import model.SubTask;
 import model.Status;
-
 import java.util.ArrayList;
 
 
 public class Main {
 
-
-
     public static void main(String[] args) {
 
-        TaskManager taskManager = new TaskManager();
+        TaskManager taskTracker  = new TaskManager();
 
 
-        Task task = taskManager.create(new Task(4, "Новая задача", "Описание"));
-
-        System.out.println("Create task: " + task);
-
-
-        Task task1 = taskManager.create(new Task(10, "Новая задача", "Описание"));
-
-        System.out.println("Create task: " + task1);
-
-
-        Task taskFromManager = taskManager.get(task.getId());
-        System.out.println("Get task: " + taskFromManager);
-
-        taskFromManager.setName("New name");
-        taskFromManager.setId(8);
-        taskFromManager.setStatus(Status.DONE);
-
-        taskManager.update(taskFromManager);
-        System.out.println("Update task: " + taskFromManager);
-
-
-        Status status = task.getStatus(Status.DONE);
-        System.out.println(status);
-
-        taskManager.delete(taskFromManager.getId());
-        System.out.println("Delete " + taskFromManager);
-
-        ArrayList<Task> taskArrayList = taskManager.getAll();
-        System.out.println("Список всех задач: " + taskArrayList);
-
-
-
-
-
-        Epic epic = taskManager.createEpic(new Epic("Новый эпик","Описание"));
+        Epic epic = taskTracker.createEpic(new Epic("Эпик 1",  "Описание"));
         System.out.println("Create epic " + epic);
 
 
-
-        Task epicFromManager = taskManager.getEpicId(epic.getId());
-        System.out.println("Get epic: " + epicFromManager);
-
-        SubTask.setEpic(epic);
-        System.out.println("SubTask SetEpic" + epic);
+        SubTask subTask1 = new SubTask(taskTracker.generateId(), "Сабтаск 1", Status.NEW, "Описание", epic);
 
 
-        epicFromManager.setName("EPIQUE");
-
-        epic.setId(5);
-
-        epic.updateStatus();
+        taskTracker.createSubTask(subTask1);
 
 
-        taskManager.updateEpic(epic);
-        System.out.println("UpdateEpic: " + epic);
+        SubTask subTask2 = new SubTask(taskTracker.generateId(), "Сабтаск 2", Status.NEW, "Описание", epic);
 
 
-        ArrayList<Epic> epicArrayList = taskManager.getAllEpics();
-        System.out.println("Список всех эпиков: " + epicArrayList);
+        taskTracker.createSubTask(subTask2);
 
 
-        SubTask subTask = taskManager.createSubTask(new SubTask(1, "Новая подзадача", "Описание подзадачи", epic));
-        System.out.println("Create subTask " + subTask);
-
-
-        taskManager.createSubTask(new SubTask(2, "Новая подзадача", "Описание подзадачи", epic));
-        System.out.println("Create subTask " + subTask);
-
-
-        taskManager.updateSubTask(new SubTask(subTask.setId(99), "Новая подзадача", "Описание подзадачи", epic));
+        System.out.println(epic);
 
 
 
-        System.out.println("Update SubTask " + subTask);
+
+        subTask2.setStatus(Status.IN_PROGRESS);
+
+        taskTracker.updateSubTask(subTask1, Status.IN_PROGRESS, subTask2);
+
+        System.out.println(epic);
+
+
+
+        subTask1.setStatus(Status.DONE);
+
+        taskTracker.updateSubTask(subTask1, Status.DONE, subTask2);
+
+
+        System.out.println(epic);
 
 
 
 
 
-
-        epic.removeSubTask(subTask);
-        System.out.println("Delete subTask " + subTask);
-
-
-        ArrayList<SubTask> subTaskArrayList = epic.getSubTasks();
-        System.out.println("Список всех сабтасков: " + subTaskArrayList);
-
-
-
-        taskManager.deleteEpic(epic.setId(0));
+        taskTracker.deleteEpic(epic.setId(0));
         System.out.println("Delete Epic " + epic);
+
+
+
 
 
     }

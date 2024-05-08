@@ -1,8 +1,11 @@
 
-’
-java:S13195"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Áï˜êøÿÿÿÿ8œéÎò1
+[
+java:S1854„"8Remove this useless assignment to local variable "epic".(Ç†îĞùÿÿÿÿ8Á˜Åõ1
 
-java:S1319<"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Öº£8äÌËûò1
+java:S1319;"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Öº£8äÌËûò1
+O
+java:S1172"1Remove this unused method parameter "savedEpic1".(ˆÔ•8ŸÙÙÍõ1
 K
-java:S1128
-".Remove this unused import 'java.util.Objects'.(¼¸õ›8ÂÅ¼Ôñ1
+java:S1128	".Remove this unused import 'java.util.Objects'.(¼¸õ›8ÂÅ¼Ôñ1
+’
+java:S13194"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Áï˜êøÿÿÿÿ8œéÎò1

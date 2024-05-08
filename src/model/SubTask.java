@@ -9,19 +9,21 @@ public class SubTask extends Task {
 
     private Epic epic;
 
-    public SubTask(String name, String description) {
+    public SubTask(String name,  String description) {
 
-        super(name, description);
+        super(name,  description);
 
     }
 
-    public SubTask(int id, String name, String description, Epic epic) {
+    public SubTask(int id, String name, Status status, String description, Epic epic) {
 
-        super(id, name, description);
+        super(id, name, status, description);
 
         this.epic = epic;
 
     }
+
+
 
     @Override
     public Epic getEpic() {
@@ -29,12 +31,11 @@ public class SubTask extends Task {
         return epic;
 
     }
-        public static Epic setEpic (Epic epic){
+    public static Epic setEpic (Epic epic){
 
-            return epic;
+        return epic;
 
-        }
-
+    }
 
 }
 
