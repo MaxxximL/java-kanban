@@ -1,67 +1,40 @@
 
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
 package service;
 
 import model.Epic;
-import model.Task;
-import model.SubTask;
 import model.Status;
-import java.util.ArrayList;
-
+import model.SubTask;
+import model.Task;
 
 public class Main {
+    public Main() {
+    }
 
     public static void main(String[] args) {
-
-        TaskManager taskTracker  = new TaskManager();
-
-
-        Epic epic = taskTracker.createEpic(new Epic("Эпик 1",  "Описание"));
-        System.out.println("Create epic " + epic);
-
-
-        SubTask subTask1 = new SubTask(taskTracker.generateId(), "Сабтаск 1", Status.NEW, "Описание", epic);
-
-
-        taskTracker.createSubTask(subTask1);
-
-
-        SubTask subTask2 = new SubTask(taskTracker.generateId(), "Сабтаск 2", Status.NEW, "Описание", epic);
-
-
-        taskTracker.createSubTask(subTask2);
-
-
-        System.out.println(epic);
-
-
-
-
-        subTask2.setStatus(Status.IN_PROGRESS);
-
-        taskTracker.updateSubTask(subTask1, Status.IN_PROGRESS, subTask2);
-
-        System.out.println(epic);
-
-
-
+        TaskManager taskManager = new TaskManager();
+        Task task = taskManager.createTask(new Task("Новая задача", "Описание"));
+        System.out.println("Создана задача: " + String.valueOf(task));
+        Epic epic = taskManager.createEpic(new Epic("Новый эпик", "Описание"));
+        System.out.println("Создан эпик: " + String.valueOf(epic));
+        SubTask subTask1 = taskManager.createSubTask(new SubTask("Подзадача 1", "Описание", epic));
+        System.out.println("Создана подзадача: " + String.valueOf(subTask1));
+        SubTask subTask2 = taskManager.createSubTask(new SubTask("Подзадача 2", "Описание", epic));
+        System.out.println("Создана подзадача: " + String.valueOf(subTask2));
+        System.out.println("Эпик после добавления подзадач: " + String.valueOf(epic));
+        subTask1.setStatus(Status.IN_PROGRESS);
+        taskManager.updateSubTask(subTask1);
+        System.out.println("Эпик после обновления статуса подзадачи: " + String.valueOf(epic));
+        subTask2.setStatus(Status.DONE);
+        taskManager.updateSubTask(subTask2);
+        System.out.println("Эпик после обновления статуса подзадачи: " + String.valueOf(epic));
         subTask1.setStatus(Status.DONE);
-
-        taskTracker.updateSubTask(subTask1, Status.DONE, subTask2);
-
-
-        System.out.println(epic);
-
-
-
-
-
-        taskTracker.deleteEpic(epic.setId(0));
-        System.out.println("Delete Epic " + epic);
-
-
-
-
-
+        taskManager.updateSubTask(subTask1);
+        System.out.println("Эпик после завершения всех подзадач: " + String.valueOf(epic));
     }
 }
 

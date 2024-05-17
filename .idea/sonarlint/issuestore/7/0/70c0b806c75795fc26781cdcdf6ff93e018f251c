@@ -1,12 +1,29 @@
 
-U	java:S106+"9Replace this use of System.out or System.err by a logger.(ÃÜ²8ËÂÉõ1
-U	java:S106""9Replace this use of System.out or System.err by a logger.(ÃÜ²8ò‚’Åõ1
-Z	java:S106"9Replace this use of System.out or System.err by a logger.(şâ¤Ùúÿÿÿÿ8ò‚’Åõ1
-M
-java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8™Ïõ1
+U	java:S106"9Replace this use of System.out or System.err by a logger.(‘•»Æ8ØâÔ˜ø1
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(‡…ä´üÿÿÿÿ8ØâÔ˜ø1
 n
-java:S1192"QDefine a constant instead of duplicating this literal "ĞĞ¿Ğ¸ÑĞ°Ğ½Ğ¸Ğµ" 3 times.(îöõ8ò‚’Åõ1
-Z	java:S106;"9Replace this use of System.out or System.err by a logger.(¹˜Ûüúÿÿÿÿ8á€œÏõ1
-C
-java:S1128"'Remove this unused import 'model.Task'.(æÏñ|8ò‚’Åõ1
-U	java:S1064"9Replace this use of System.out or System.err by a logger.(ÃÜ²8­¡öÎõ1
+java:S1192"QDefine a constant instead of duplicating this literal "ĞĞ¿Ğ¸ÑĞ°Ğ½Ğ¸Ğµ" 4 times.(é•Ê”8ØâÔ˜ø1
+S
+java:S1153"1Directly append the argument of String.valueOf().(ÛÍõËüÿÿÿÿ8ØâÔ˜ø1
+N
+java:S1153"1Directly append the argument of String.valueOf().(‘•»Æ8ØâÔ˜ø1
+U	java:S106""9Replace this use of System.out or System.err by a logger.(‘•»Æ8Ëã¥é÷1
+S
+java:S1153"1Directly append the argument of String.valueOf().(¥¯Òşşÿÿÿÿ8ØâÔ˜ø1
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(ÇÙ¢’ıÿÿÿÿ8ØâÔ˜ø1
+M
+java:S1153"1Directly append the argument of String.valueOf().(À£ê_8ØâÔ˜ø1
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(ÛÍõËüÿÿÿÿ8ØâÔ˜ø1
+S
+java:S1153"1Directly append the argument of String.valueOf().(‡…ä´üÿÿÿÿ8ØâÔ˜ø1
+T	java:S106"9Replace this use of System.out or System.err by a logger.(À£ê_8ØâÔ˜ø1
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(¥¯Òşşÿÿÿÿ8ØâÔ˜ø1
+Z	java:S106%"9Replace this use of System.out or System.err by a logger.(¶ÉÕúÿÿÿÿ8Ëã¥é÷1
+S
+java:S1153%"1Directly append the argument of String.valueOf().(¶ÉÕúÿÿÿÿ8ØâÔ˜ø1
+£
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ú„üÿÿÿÿ8ØâÔ˜ø1
+N
+java:S1153""1Directly append the argument of String.valueOf().(‘•»Æ8ØâÔ˜ø1
+S
+java:S1153"1Directly append the argument of String.valueOf().(ÇÙ¢’ıÿÿÿÿ8ØâÔ˜ø1

@@ -1,15 +1,17 @@
 
+Q
+java:S3740"/Provide the parametrized type for this generic.(ŞòĞ¯üÿÿÿÿ8şŒ×˜ø1
+V
+java:S1128"9Remove this unused import 'java.util.function.Predicate'.(ïÍ–¶8şŒ×˜ø1
+W
+java:S1611!"5Remove the parentheses around the "subTask" parameter(âë’Ïøÿÿÿÿ8şŒ×˜ø1
+u
+java:S1602!"SRemove useless curly braces around statement and then remove useless return keyword(âë’Ïøÿÿÿÿ8şŒ×˜ø1
+R
+java:S1611$"5Remove the parentheses around the "subTask" parameter(ŒÙ‡Õ8şŒ×˜ø1
 p
-java:S1128"TRemove this unnecessary import: same package classes are always implicitly imported.(æÏñ|8Ù›õÖğ1
-I
-java:S1068"'Remove this unused "seq" private field.(´öÜ¨ÿÿÿÿÿ8Ú³‹Ñò1
-v
-java:S1128"TRemove this unnecessary import: same package classes are always implicitly imported.(õ™Ğ·ùÿÿÿÿ8ğÿõô1
-’
-java:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(‹ËÑıÿÿÿÿ8¾ßâüò1
-\
-java:S1161)":Add the "@Override" annotation above this method signature(Äèç´ûÿÿÿÿ8ö¨ˆÄõ1
-K
-java:S1128".Remove this unused import 'java.util.Objects'.(¼¸õ›8ø¾ŸÔñ1
+java:S1602$"SRemove useless curly braces around statement and then remove useless return keyword(ŒÙ‡Õ8şŒ×˜ø1
 H
-java:S2160"+Override the "equals" method in this class.(‡¢ÉÎ8ö¨ˆÄõ1
+java:S2160"+Override the "equals" method in this class.(‡¢ÉÎ8şŒ×˜ø1
+\
+java:S1161 ":Add the "@Override" annotation above this method signature(íàÊ£øÿÿÿÿ8üìš™ø1

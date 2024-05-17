@@ -1,62 +1,42 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
 package model;
-import service.TaskManager;
 
 import java.util.Objects;
 
 public class Task {
-
-    private int id ;
+    private int id;
     private String name;
     protected Status status;
     private String description;
 
-    public Task(int id, String name, Status status, String description) {
-
-        this.id = id;
-        this.name = name;
-        this.status = status;
-        this.description = description;
-
-    }
-
     public Task(String name, String description) {
-
         this.name = name;
         this.status = Status.NEW;
         this.description = description;
-
-    }
-
-
-    public Epic getEpic() {
-        return null;
-
     }
 
     public int getId() {
-        return id;
-
+        return this.id;
     }
 
-    public int setId(int id) {
-
+    public void setId(int id) {
         this.id = id;
-        return id;
     }
 
     public String getName() {
-
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
         this.name = name;
-
     }
 
-    public Status getStatus(Status status) {
-        return status;
-
+    public Status getStatus() {
+        return this.status;
     }
 
     public void setStatus(Status status) {
@@ -64,35 +44,30 @@ public class Task {
     }
 
     public String getDescription() {
-        return description;
-
+        return this.description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-
     }
 
-    @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(new Object[]{this.id});
     }
 
-    @Override
     public boolean equals(Object o) {
-        if(this == o) return true;
-        if(o == null || getClass() != o.getClass()) return false;
-        Task task = (Task) o;
-        return id == task.id;
-
+        if (this == o) {
+            return true;
+        } else if (o != null && this.getClass() == o.getClass()) {
+            Task task = (Task)o;
+            return this.id == task.id;
+        } else {
+            return false;
+        }
     }
 
-    @Override
     public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", name=`" + name +
-                ", status=`" + status +
-                ", description=`" + description + "}";
+        int var10000 = this.id;
+        return "Task{id=" + var10000 + ", name='" + this.name + "', status=" + String.valueOf(this.status) + ", description='" + this.description + "'}";
     }
 }

@@ -1,46 +1,45 @@
-package model;
-import model.Task;
-import model.Status;
-import java.util.ArrayList;
 
-import java.util.Objects;
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
+package model;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 
 public class Epic extends Task {
-
-
-
-    private ArrayList<SubTask> subTasks = new ArrayList<>(); // Set
-
-    private int seq = 0;
+    private List<SubTask> subTasks = new ArrayList();
 
     public Epic(String name, String description) {
-
-        super(name,  description);
-
+        super(name, description);
     }
 
-
-
-    public ArrayList<SubTask> getSubTasks() {
-
-        return subTasks;
+    public List<SubTask> getSubTasks() {
+        return this.subTasks;
     }
 
-    public void setSubTasks(SubTask subTask) {
-        subTasks.add(subTask);
-
+    public void addSubTask(SubTask subTask) {
+        this.subTasks.add(subTask);
     }
 
-    public void removeSubTask(SubTask subTask) {     // Set
-
-        subTasks.remove(subTask);
-
+    public void removeSubTask(SubTask subTask) {
+        this.subTasks.remove(subTask);
     }
 
-
-    public int setId(int id) {
-
-        return id;
+    public Status getStatus() {
+        boolean allNew = this.subTasks.stream().allMatch((subTask) -> {
+            return subTask.getStatus() == Status.NEW;
+        });
+        boolean allDone = this.subTasks.stream().allMatch((subTask) -> {
+            return subTask.getStatus() == Status.DONE;
+        });
+        if (!this.subTasks.isEmpty() && !allNew) {
+            return allDone ? Status.DONE : Status.IN_PROGRESS;
+        } else {
+            return Status.NEW;
+        }
     }
-
 }
