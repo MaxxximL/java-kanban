@@ -1,12 +1,7 @@
-
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 package model;
 
 public class SubTask extends Task {
+
     private Epic epic;
 
     public SubTask(String name, String description, Epic epic) {
@@ -15,7 +10,7 @@ public class SubTask extends Task {
     }
 
     public Epic getEpic() {
-        return this.epic;
+        return epic;
     }
 
     public void setEpic(Epic epic) {

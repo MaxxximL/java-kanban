@@ -1,13 +1,9 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 package model;
 
 import java.util.Objects;
 
 public class Task {
+
     private int id;
     private String name;
     protected Status status;
@@ -20,7 +16,7 @@ public class Task {
     }
 
     public int getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(int id) {
@@ -28,7 +24,7 @@ public class Task {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -36,7 +32,7 @@ public class Task {
     }
 
     public Status getStatus() {
-        return this.status;
+        return status;
     }
 
     public void setStatus(Status status) {
@@ -44,30 +40,33 @@ public class Task {
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
+    @Override
     public int hashCode() {
-        return Objects.hash(new Object[]{this.id});
+        return Objects.hash(id);
     }
 
+    @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        } else if (o != null && this.getClass() == o.getClass()) {
-            Task task = (Task)o;
-            return this.id == task.id;
-        } else {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return id == task.id;
     }
 
+    @Override
     public String toString() {
-        int var10000 = this.id;
-        return "Task{id=" + var10000 + ", name='" + this.name + "', status=" + String.valueOf(this.status) + ", description='" + this.description + "'}";
+        return "Task{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", status=" + status +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

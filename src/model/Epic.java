@@ -1,45 +1,39 @@
-
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 public class Epic extends Task {
-    private List<SubTask> subTasks = new ArrayList();
+
+    private List<SubTask> subTasks = new ArrayList<>();
 
     public Epic(String name, String description) {
         super(name, description);
     }
 
     public List<SubTask> getSubTasks() {
-        return this.subTasks;
+        return subTasks;
     }
 
     public void addSubTask(SubTask subTask) {
-        this.subTasks.add(subTask);
+        subTasks.add(subTask);
     }
 
     public void removeSubTask(SubTask subTask) {
-        this.subTasks.remove(subTask);
+        subTasks.remove(subTask);
     }
 
+    @Override
     public Status getStatus() {
-        boolean allNew = this.subTasks.stream().allMatch((subTask) -> {
-            return subTask.getStatus() == Status.NEW;
-        });
-        boolean allDone = this.subTasks.stream().allMatch((subTask) -> {
-            return subTask.getStatus() == Status.DONE;
-        });
-        if (!this.subTasks.isEmpty() && !allNew) {
-            return allDone ? Status.DONE : Status.IN_PROGRESS;
-        } else {
+        boolean allNew = subTasks.stream().allMatch(subTask -> subTask.getStatus() == Status.NEW);
+        boolean allDone = subTasks.stream().allMatch(subTask -> subTask.getStatus() == Status.DONE);
+
+        if (subTasks.isEmpty() || allNew) {
             return Status.NEW;
+        } else if (allDone) {
+            return Status.DONE;
+        } else {
+            return Status.IN_PROGRESS;
         }
     }
 }
