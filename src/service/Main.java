@@ -5,6 +5,11 @@ import model.Status;
 import model.SubTask;
 import model.Task;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -21,6 +26,7 @@ public class Main {
 
         SubTask subTask2 = taskManager.createSubTask(new SubTask("Подзадача 2", "Описание", epic));
         System.out.println("Создана подзадача: " + subTask2);
+
 
         System.out.println("Эпик после добавления подзадач: " + epic);
 
@@ -39,6 +45,12 @@ public class Main {
         System.out.println("История просмотров:");
         for (Task t : taskManager.getHistory()) {
             System.out.println(t);
+
+
         }
+
     }
 }
+
+
+
