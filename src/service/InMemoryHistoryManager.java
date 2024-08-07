@@ -100,6 +100,7 @@ public class InMemoryHistoryManager implements HistoryManager {
             this.prev = null;
 
 
+
         }
     }
 }
