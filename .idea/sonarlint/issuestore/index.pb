@@ -32,3 +32,7 @@ W
 'src/service/InMemoryHistoryManager.java,8\e\8ef952e45433fc04e2287543d2dad0f15d6d8f95
 Q
 !test/service/TaskManagerTest.java,2\b\2b4b739109f9626d110e4be1108ea081f3d45309
+S
+#.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
+T
+$test/service/HistoryManagerTest.java,9\c\9c45b95be3f811ca37688b1299202d08d5f95b09
