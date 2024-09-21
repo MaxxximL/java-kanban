@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class InMemoryTaskManager implements TaskManager {
 
-    private Map<Integer, Task> tasks = new HashMap<>();
+    public Map<Integer, Task> tasks = new HashMap<>();
     private Map<Integer, Epic> epics = new HashMap<>();
     private Map<Integer, SubTask> subTasks = new HashMap<>();
     private int idCounter = 0;
@@ -43,6 +43,7 @@ public class InMemoryTaskManager implements TaskManager {
         Epic epic = subTask.getEpic();
         epic.addSubTask(subTask);
         updateEpicStatus(epic);
+
         return subTask;
     }
 

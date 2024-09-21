@@ -36,3 +36,13 @@ S
 #.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
 T
 $test/service/HistoryManagerTest.java,9\c\9c45b95be3f811ca37688b1299202d08d5f95b09
+V
+&src/service/FileBackedTaskManager.java,f\0\f0227886215233fad1b6b3adf426293f7f076983
+G
+src/model/TaskType.java,7\8\78dd8e95092ea79341f9e9a313b063a65706fbb3
+M
+src/service/CSVFormatter.java,b\d\bdb0139641ad5ba6235f3ee6030d338d58d0b0e4
+U
+%src/service/ManagerSaveException.java,5\b\5b7f83f0f97a9d3aa3447976e3bed4b5a195ebc5
+[
++test/service/FileBackedTaskManagerTest.java,d\4\d42ef020c62f959022c1be9889b003d26a420cb9

@@ -1,5 +1,6 @@
 package model;
 
+
 import java.util.Objects;
 
 public class Task {
@@ -8,11 +9,22 @@ public class Task {
     private String name;
     protected Status status;
     private String description;
+    private Epic epic;
+    private Integer epicId;
 
     public Task(String name, String description) {
         this.name = name;
         this.status = Status.NEW;
         this.description = description;
+    }
+
+    public Task(int id, String name, Status status, String description, Integer epicId) {
+
+        this.id = id;
+        this.name = name;
+        this.status = Status.NEW;
+        this.description = description;
+        this.epicId = getEpicId();
     }
 
     public int getId() {
@@ -45,6 +57,11 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getEpicId() {
+
+        return null;
     }
 
     @Override
