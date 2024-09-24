@@ -111,7 +111,7 @@ class TaskManagerTest {
     public void testGetAllSubTasks() {
         List<SubTask> subTasks = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            subTasks.add(new SubTask("SubTask 1", "Description 1", null));
+            subTasks.add(new SubTask("SubTask 1", "Description 1", 1));
             taskManager.createSubTask(subTasks.get(i));
         }
         List<SubTask> allSubTasks = taskManager.getAllSubTasks();
