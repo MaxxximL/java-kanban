@@ -16,8 +16,8 @@ import java.util.Map;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
-    private final Path file;
     private static final String PATH_TO_FILE = "/resources/path/to/file";
+    private final Path file;
 
     public FileBackedTaskManager(Path file) {
 

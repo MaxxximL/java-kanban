@@ -71,8 +71,8 @@ public class FileBackedTaskManagerTest {
 
     @Test
     public void testSaveAndLoadMultipleSubTasks() throws IOException {
-        SubTask subTask1 = new SubTask("SubTask 1", "Description 1", null);
-        SubTask subTask2 = new SubTask("SubTask 2", "Description 2", null);
+        SubTask subTask1 = new SubTask("SubTask 1", "Description 1", 1);
+        SubTask subTask2 = new SubTask("SubTask 2", "Description 2", 1);
         taskManager.createSubTask(subTask1);
         taskManager.createSubTask(subTask2);
         taskManager.save();
