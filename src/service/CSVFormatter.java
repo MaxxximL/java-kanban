@@ -1,7 +1,7 @@
 package service;
-import model.Epic;
-import model.Task;
+
 import model.Status;
+import model.Task;
 
 public class CSVFormatter {
 
