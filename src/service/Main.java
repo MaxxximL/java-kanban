@@ -1,11 +1,12 @@
 package service;
 
-import model.Task;
 import model.Epic;
 import model.SubTask;
-import java.util.List;
+import model.Task;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 
 public class Main {
@@ -41,6 +42,6 @@ public class Main {
         List<SubTask> subTasks = loadedTaskManager.getAllSubTasks();
         System.out.println(subTasks);
 
-       
+
     }
 }
