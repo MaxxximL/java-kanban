@@ -71,7 +71,7 @@ class TaskManagerTest {
     @Test
     public void testCreateSubTask() {
         Epic epic = new Epic("Epic 1", "Description 1");
-        SubTask subTask = new SubTask("SubTask 1", "Description 1", epic);
+        SubTask subTask = new SubTask("SubTask 1", "Description 1", epic.getId());
         SubTask createdSubTask = taskManager.createSubTask(subTask);
         assertEquals(subTask, createdSubTask);
     }
@@ -87,7 +87,7 @@ class TaskManagerTest {
     @Test
     public void testGetSubTaskById() {
         Epic epic = new Epic("Epic 1", "Description 1");
-        SubTask subTask = new SubTask("SubTask 1", "Description 1", epic);
+        SubTask subTask = new SubTask("SubTask 1", "Description 1", epic.getId());
         SubTask createdSubTask = taskManager.createSubTask(subTask);
         SubTask retrievedSubTask = taskManager.getSubTaskById(createdSubTask.getId());
         assertEquals(createdSubTask, retrievedSubTask);
@@ -111,7 +111,7 @@ class TaskManagerTest {
     public void testGetAllSubTasks() {
         List<SubTask> subTasks = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            subTasks.add(new SubTask("SubTask 1", "Description 1" + i, new Epic("Epic 1", "Description 1" + i)));
+            subTasks.add(new SubTask("SubTask 1", "Description 1", null));
             taskManager.createSubTask(subTasks.get(i));
         }
         List<SubTask> allSubTasks = taskManager.getAllSubTasks();
@@ -134,9 +134,9 @@ class TaskManagerTest {
     @Test
     public void testUpdateSubTask() {
         Epic epic = new Epic("Epic 1", "Description 1");
-        SubTask subtask = new SubTask("Subtask 1", "Description 1", epic);
+        SubTask subtask = new SubTask("Subtask 1", "Description 1", epic.getId());
         SubTask createdSubtask = taskManager.createSubTask(subtask);
-        SubTask updatedSubtask = new SubTask("Updated Subtask 1", "Updated Description 1", epic);
+        SubTask updatedSubtask = new SubTask("Updated Subtask 1", "Updated Description 1", epic.getId());
         updatedSubtask.setId(createdSubtask.getId());
         taskManager.updateSubTask(updatedSubtask);
         assertEquals(updatedSubtask, taskManager.getSubTaskById(createdSubtask.getId()));
@@ -155,7 +155,7 @@ class TaskManagerTest {
     @Test
     public void testDeleteSubTask() {
         Epic epic = new Epic("Epic 1", "Description 1");
-        SubTask subTask = new SubTask("SubTask 1", "Description 1", epic);
+        SubTask subTask = new SubTask("SubTask 1", "Description 1", epic.getId());
         SubTask createdSubTask = taskManager.createSubTask(subTask);
         assertNotNull(taskManager.getSubTaskById(createdSubTask.getId()));
 

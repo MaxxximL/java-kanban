@@ -10,8 +10,6 @@ O
 java-kanban.iml,d\f\df5dcbbd3f931c7c23855ccec11732ab4c8544f2
 C
 src/model/Task.java,f\8\f832a384be168e161b98ea99b51d3c78b15a5a6b
-C
-src/model/Epic.java,1\5\15fb8ff594e3a81ac2d9c626287e891985bba15d
 F
 src/model/Subtask.java,6\b\6bba45984ebbd1cd2e9eadd49ae201ac02cd181d
 E
@@ -36,8 +34,6 @@ S
 #.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
 T
 $test/service/HistoryManagerTest.java,9\c\9c45b95be3f811ca37688b1299202d08d5f95b09
-V
-&src/service/FileBackedTaskManager.java,f\0\f0227886215233fad1b6b3adf426293f7f076983
 G
 src/model/TaskType.java,7\8\78dd8e95092ea79341f9e9a313b063a65706fbb3
 M
@@ -46,3 +42,7 @@ U
 %src/service/ManagerSaveException.java,5\b\5b7f83f0f97a9d3aa3447976e3bed4b5a195ebc5
 [
 +test/service/FileBackedTaskManagerTest.java,d\4\d42ef020c62f959022c1be9889b003d26a420cb9
+V
+&src/service/FileBackedTaskManager.java,f\0\f0227886215233fad1b6b3adf426293f7f076983
+C
+src/model/Epic.java,1\5\15fb8ff594e3a81ac2d9c626287e891985bba15d

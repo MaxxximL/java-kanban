@@ -9,7 +9,6 @@ public class Task {
     private String name;
     protected Status status;
     private String description;
-    private Epic epic;
     private Integer epicId;
 
     public Task(String name, String description) {

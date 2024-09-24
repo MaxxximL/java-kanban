@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class InMemoryTaskManager implements TaskManager {
 
-    public Map<Integer, Task> tasks = new HashMap<>();
+    protected Map<Integer, Task> tasks = new HashMap<>();
     private Map<Integer, Epic> epics = new HashMap<>();
     private Map<Integer, SubTask> subTasks = new HashMap<>();
     private int idCounter = 0;
@@ -40,9 +40,6 @@ public class InMemoryTaskManager implements TaskManager {
     public SubTask createSubTask(SubTask subTask) {
         subTask.setId(generateId());
         subTasks.put(subTask.getId(), subTask);
-        Epic epic = subTask.getEpic();
-        epic.addSubTask(subTask);
-        updateEpicStatus(epic);
 
         return subTask;
     }
@@ -105,7 +102,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateSubTask(SubTask subTask) {
         subTasks.put(subTask.getId(), subTask);
-        updateEpicStatus(subTask.getEpic());
+
     }
 
     @Override
@@ -127,12 +124,8 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteSubTask(int id) {
-        SubTask subTask = subTasks.remove(id);
-        if (subTask != null) {
-            Epic epic = subTask.getEpic();
-            epic.removeSubTask(subTask);
-            updateEpicStatus(epic);
-        }
+        subTasks.remove(id);
+
     }
 
     @Override
