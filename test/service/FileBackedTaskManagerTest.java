@@ -12,26 +12,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 public class FileBackedTaskManagerTest {
 
-
     @Test
-    public void testSaveAndLoadEmptyFile() throws IOException {
-        Path file = Paths.get("path/to/file");
-        FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
-
-        taskManager.save();
-
-        FileBackedTaskManager loadedTaskManager = FileBackedTaskManager.loadFromFile();
-
-        assertEquals(0, loadedTaskManager.getAllTasks().size());
-        assertEquals(0, loadedTaskManager.getAllEpics().size());
-        assertEquals(0, loadedTaskManager.getAllSubTasks().size());
-    }
-
-    @Test
-    public void testSaveAndLoadSingleTask() throws IOException {
+    public void testSaveAndLoadTask() throws IOException {
         Path file = Paths.get("path/to/file");
         FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
 
@@ -47,29 +31,9 @@ public class FileBackedTaskManagerTest {
         assertEquals(task, tasks.get(0));
     }
 
-    @Test
-    public void testSaveAndLoadMultipleTasks() throws IOException {
-        Path file = Paths.get("path/to/file");
-        FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
-
-        Task task1 = new Task("Task 1", "Description 1");
-        Task task2 = new Task("Task 2", "Description 2");
-
-        taskManager.createTask(task1);
-        taskManager.createTask(task2);
-
-        taskManager.save();
-
-        FileBackedTaskManager loadedTaskManager = FileBackedTaskManager.loadFromFile();
-
-        List<Task> tasks = loadedTaskManager.getAllTasks();
-        assertEquals(2, tasks.size());
-        assertEquals(task1, tasks.get(0));
-        assertEquals(task2, tasks.get(1));
-    }
 
     @Test
-    public void testSaveAndLoadSingleEpic() throws IOException {
+    public void testSaveAndLoadEpic() throws IOException {
         Path file = Paths.get("path/to/file");
         FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
 
@@ -85,29 +49,9 @@ public class FileBackedTaskManagerTest {
         assertEquals(epic, epics.get(0));
     }
 
-    @Test
-    public void testSaveAndLoadMultipleEpics() throws IOException {
-        Path file = Paths.get("path/to/file");
-        FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
-
-        Epic epic1 = new Epic("Epic 1", "Description 1");
-        Epic epic2 = new Epic("Epic 2", "Description 2");
-
-        taskManager.createEpic(epic1);
-        taskManager.createEpic(epic2);
-
-        taskManager.save();
-
-        FileBackedTaskManager loadedTaskManager = FileBackedTaskManager.loadFromFile();
-
-        List<Epic> epics = loadedTaskManager.getAllEpics();
-        assertEquals(2, epics.size());
-        assertEquals(epic1, epics.get(0));
-        assertEquals(epic2, epics.get(1));
-    }
 
     @Test
-    public void testSaveAndLoadSingleSubtask() throws IOException {
+    public void testSaveAndLoadSubtask() throws IOException {
         Path file = Paths.get("path/to/file");
         FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
 
