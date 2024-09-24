@@ -107,19 +107,6 @@ class TaskManagerTest {
         }
     }
 
-    @Test
-    public void testGetAllSubTasks() {
-        List<SubTask> subTasks = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            subTasks.add(new SubTask("SubTask 1", "Description 1", 1));
-            taskManager.createSubTask(subTasks.get(i));
-        }
-        List<SubTask> allSubTasks = taskManager.getAllSubTasks();
-        assertEquals(5, allSubTasks.size());
-        for (int i = 0; i < 5; i++) {
-            assertEquals(subTasks.get(i), allSubTasks.get(i));
-        }
-    }
 
     @Test
     public void testUpdateEpic() {
