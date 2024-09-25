@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -19,6 +20,7 @@ public class FileBackedTaskManagerTest {
     @BeforeEach
     public void setUp() throws Exception {
         Path file = Paths.get("path/to/file");
+        Files.createFile(file);
         taskManager = new FileBackedTaskManager(file);
     }
 
