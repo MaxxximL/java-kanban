@@ -33,7 +33,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             List<Task> tasks = new ArrayList<>();
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
-                int id = Integer.parseInt(parts[0]);
+                Integer id = Integer.parseInt(parts[0]);
                 Task task = CSVFormatter.fromString(line);
                 tasks.add(task);
             }
@@ -69,19 +69,19 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void deleteTask(int id) {
+    public void deleteTask(Integer id) {
         super.deleteTask(id);
         save();
     }
 
     @Override
-    public void deleteEpic(int id) {
+    public void deleteEpic(Integer id) {
         super.deleteEpic(id);
         save();
     }
 
     @Override
-    public void deleteSubTask(int id) {
+    public void deleteSubTask(Integer id) {
         super.deleteSubTask(id);
         save();
     }

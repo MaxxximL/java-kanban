@@ -14,10 +14,10 @@ public class InMemoryTaskManager implements TaskManager {
     protected Map<Integer, Task> tasks = new HashMap<>();
     private Map<Integer, Epic> epics = new HashMap<>();
     private Map<Integer, SubTask> subTasks = new HashMap<>();
-    private int idCounter = 0;
+    private Integer idCounter = 0;
     private HistoryManager historyManager = Managers.getDefaultHistory();
 
-    private int generateId() {
+    private Integer generateId() {
         return ++idCounter;
     }
 
@@ -45,7 +45,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Task getTaskById(int id) {
+    public Task getTaskById(Integer id) {
         Task task = tasks.get(id);
         if (task != null) {
             historyManager.add(task);
@@ -55,7 +55,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Epic getEpicById(int id) {
+    public Epic getEpicById(Integer id) {
         Epic epic = epics.get(id);
         if (epic != null) {
             historyManager.add(epic);
@@ -64,7 +64,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public SubTask getSubTaskById(int id) {
+    public SubTask getSubTaskById(Integer id) {
         SubTask subTask = subTasks.get(id);
         if (subTask != null) {
             historyManager.add(subTask);
@@ -106,14 +106,14 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void deleteTask(int id) {
+    public void deleteTask(Integer id) {
         tasks.remove(id);
         historyManager.remove(id);
 
     }
 
     @Override
-    public void deleteEpic(int id) {
+    public void deleteEpic(Integer id) {
         Epic epic = epics.remove(id);
         if (epic != null) {
             for (SubTask subTask : epic.getSubTasks()) {
@@ -123,7 +123,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void deleteSubTask(int id) {
+    public void deleteSubTask(Integer id) {
         subTasks.remove(id);
 
     }
