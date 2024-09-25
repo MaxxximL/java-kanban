@@ -32,16 +32,17 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             String line;
             List<Task> tasks = new ArrayList<>();
             while ((line = br.readLine()) != null) {
-
+                String[] parts = line.split(",");
+                int id = Integer.parseInt(parts[0]);
                 Task task = CSVFormatter.fromString(line);
                 tasks.add(task);
             }
-
         } catch (IOException e) {
             throw ManagerSaveException.loadException(e);
         }
         return fileBackedTaskManager;
     }
+
 
     @Override
     public Task createTask(Task task) {
