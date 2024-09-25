@@ -5,11 +5,11 @@ import java.util.Objects;
 
 public class Task {
 
-    private int id;
+    private Integer id;
     private String name;
     protected Status status;
     private String description;
-    private int epicId;
+    private Integer epicId;
 
     public Task(String name, String description) {
         this.name = name;
@@ -17,7 +17,7 @@ public class Task {
         this.description = description;
     }
 
-    public Task(int id, String name, Status status, String description, int epicId) {
+    public Task(Integer id, String name, Status status, String description, Integer epicId) {
 
         this.id = id;
         this.name = name;
