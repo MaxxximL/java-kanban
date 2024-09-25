@@ -9,7 +9,7 @@ public class Task {
     private String name;
     protected Status status;
     private String description;
-    private Integer epicId;
+    private int epicId;
 
     public Task(String name, String description) {
         this.name = name;
@@ -17,7 +17,7 @@ public class Task {
         this.description = description;
     }
 
-    public Task(int id, String name, Status status, String description, Integer epicId) {
+    public Task(int id, String name, Status status, String description, int epicId) {
 
         this.id = id;
         this.name = name;
