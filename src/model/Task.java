@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Task {
 
-    private int id;
+    private Integer id;
     private String name;
     protected Status status;
     private String description;
@@ -17,7 +17,7 @@ public class Task {
         this.description = description;
     }
 
-    public Task(int id, String name, Status status, String description, Integer epicId) {
+    public Task(Integer id, String name, Status status, String description, Integer epicId) {
 
         this.id = id;
         this.name = name;
@@ -60,7 +60,7 @@ public class Task {
 
     public Integer getEpicId() {
 
-        return null;
+        return epicId;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return id == task.id;
+        return id.equals(task.id);
     }
 
     @Override
