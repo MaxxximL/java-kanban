@@ -19,7 +19,7 @@ public class FileBackedTaskManagerTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        Path file = Paths.get("path/to/file");
+        Path file = Paths.get("/resources/path/to/file");
         Files.createFile(file);
         taskManager = new FileBackedTaskManager(file);
     }
@@ -27,7 +27,7 @@ public class FileBackedTaskManagerTest {
     @Test
     public void testSaveAndLoadEmptyFile() throws IOException {
         taskManager.save();
-        File file = new File("path/to/file");
+        File file = new File("/resources/path/to/file");
         boolean exists = file.exists();
         Assertions.assertTrue(exists);
         taskManager = FileBackedTaskManager.loadFromFile();
