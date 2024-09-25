@@ -26,7 +26,7 @@ public class CSVFormatter {
         String name = parts[1];
         Status status = Status.valueOf(parts[2]);
         String description = parts[3];
-        Integer epicId = Integer.parseInt(parts[4]);
+        int epicId = Integer.parseInt(parts[4]); // <--- Fix here
         return new Task(id, name, status, description, epicId);
     }
 
