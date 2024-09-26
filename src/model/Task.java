@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Task {
 
-    private int id = 0;
+    private int id;
     private String name;
     protected Status status;
     private String description;
@@ -23,7 +23,7 @@ public class Task {
         this.name = name;
         this.status = Status.NEW;
         this.description = description;
-        this.epicId = getEpicId();
+        this.epicId = epicId;
     }
 
     public int getId() {

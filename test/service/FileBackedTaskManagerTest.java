@@ -2,6 +2,7 @@ package service;
 
 import model.Epic;
 import model.SubTask;
+import model.Status;
 import model.Task;
 import org.junit.jupiter.api.Test;
 
