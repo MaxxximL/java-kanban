@@ -20,8 +20,8 @@ public class Main {
         Task task1 = new Task("Task 1", "Description 1");
         Task task2 = new Task("Task 2", "Description 2");
         Epic epic1 = new Epic("Epic 1", "Description 1");
-        SubTask subTask1 = new SubTask("SubTask 1", "Description 1", epic1.getId());
-        SubTask subTask2 = new SubTask("SubTask 2", "Description 2", epic1.getId());
+        SubTask subTask1 = new SubTask("SubTask 1", "Description 1", epic1.getEpicId());
+        SubTask subTask2 = new SubTask("SubTask 2", "Description 2", epic1.getEpicId());
 
         taskManager.createTask(task1);
         taskManager.createTask(task2);

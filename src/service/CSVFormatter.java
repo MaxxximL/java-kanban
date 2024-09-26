@@ -39,7 +39,7 @@ public class CSVFormatter {
         }
         String description = parts[3];
         String epicId = parts[4]; // changed from int to String
-        return new Task(id, name, status, description, Integer.parseInt(epicId)); // or use the String epicId as needed
+        return new Task(id, name, status, description, epicId); // or use the String epicId as needed
     }
 
     public static String getHeader() {

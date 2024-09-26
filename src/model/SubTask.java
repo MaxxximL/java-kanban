@@ -3,24 +3,24 @@ package model;
 public class SubTask extends Task {
 
 
-    private int epicId;
+    private String epicId;
 
-    public SubTask(String name, String description, int epicId) {
+    public SubTask(String name, String description, String epicId) {
         super(name, description);
         this.epicId = epicId;
     }
 
-    public int getEpic() {
+    public String getEpic() {
         return epicId;
     }
 
     @Override
-    public int getEpicId() {
+    public String getEpicId() {
 
         return epicId;
     }
 
-    public void setEpic(int epicId) {
+    public void setEpic(String epicId) {
         this.epicId = epicId;
     }
 }
