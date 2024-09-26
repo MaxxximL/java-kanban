@@ -38,7 +38,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 try {
                     id = Integer.parseInt(parts[0]);
                 } catch (NumberFormatException e) {
-                    // handle the error, for example by setting the id to 0
+
                     id = 0;
                 }
                 Task task = CSVFormatter.fromString(line);

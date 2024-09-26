@@ -19,7 +19,7 @@ public class Task {
 
     public Task(int id, String name, Status status, String description, int epicId) {
 
-        this.id = 1;
+        this.id = id;
         this.name = name;
         this.status = Status.NEW;
         this.description = description;
