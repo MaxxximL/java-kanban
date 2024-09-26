@@ -34,12 +34,17 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             List<Task> tasks = new ArrayList<>();
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
-                int id = Integer.parseInt(parts[0]);
-                Task task = CSVFormatter.fromString(line);
-                if (task != null && task.getId() != 0) { // <--- add this check
-                    tasks.add(task);
+                int id;
+                try {
+                    id = Integer.parseInt(parts[0]);
+                } catch (NumberFormatException e) {
+                    // handle the error, for example by setting the id to 0
+                    id = 0;
                 }
+                Task task = CSVFormatter.fromString(line);
+                tasks.add(task);
             }
+
         } catch (IOException e) {
             throw ManagerSaveException.loadException(e);
         }
@@ -100,6 +105,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         super.updateEpic(epic);
         save();
     }
+
 
     @Override
     public void updateSubTask(SubTask subTask) {
