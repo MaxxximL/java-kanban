@@ -22,11 +22,11 @@ public class CSVFormatter {
 
     public static Task fromString(String value) {
         String[] parts = value.split(",");
-        Integer id = Integer.parseInt(parts[0]);
+        int id = Integer.parseInt(parts[0]);
         String name = parts[1];
         Status status = Status.valueOf(parts[2]);
         String description = parts[3];
-        Integer epicId = Integer.parseInt(parts[4]);
+        int epicId = Integer.parseInt(parts[4]);
         return new Task(id, name, status, description, epicId);
     }
 

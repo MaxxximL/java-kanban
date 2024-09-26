@@ -23,7 +23,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     @Override
-    public void remove(Integer id) {
+    public void remove(int id) {
 
         Node node = nodeHashMap.remove(id);
 
