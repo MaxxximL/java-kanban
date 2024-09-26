@@ -3,6 +3,7 @@ package service;
 import model.Epic;
 import model.SubTask;
 import model.Task;
+import java.io.IOException;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -35,7 +36,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 String[] parts = line.split(",");
                 int id = Integer.parseInt(parts[0]);
                 Task task = CSVFormatter.fromString(line);
-                tasks.add(task);
+                if (task != null && task.getId() != 0) { // <--- add this check
+                    tasks.add(task);
+                }
             }
         } catch (IOException e) {
             throw ManagerSaveException.loadException(e);
