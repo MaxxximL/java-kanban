@@ -31,7 +31,12 @@ public class CSVFormatter {
         }
 
         String name = parts[1];
-        Status status = Status.valueOf(parts[2]);
+        Status status = null;
+        try {
+            status = Status.valueOf(parts[2]);
+        } catch (IllegalArgumentException e) {
+            // handle the error here, for example by logging it or throwing a custom exception
+        }
         String description = parts[3];
         int epicId = Integer.parseInt(parts[4]);
         return new Task(id, name, status, description, epicId);
