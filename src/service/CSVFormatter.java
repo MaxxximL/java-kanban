@@ -3,6 +3,8 @@ package service;
 import model.Status;
 import model.Task;
 
+import java.io.IOException;
+
 public class CSVFormatter {
 
     private CSVFormatter() {
@@ -20,23 +22,18 @@ public class CSVFormatter {
                 .toString();
     }
 
+
     public static Task fromString(String value) {
         String[] parts = value.split(",");
         int id = Integer.parseInt(parts[0]);
         String name = parts[1];
-        Status status = null;
-        try {
-            status = Status.valueOf(parts[2]);
-        } catch (IllegalArgumentException e) {
-            // handle the error here, for example by logging it or throwing a custom exception
-        }
-        String description = parts[3];
-        int epicId = Integer.parseInt(parts[4]);
-        return new Task(id, name, status, description, epicId);
+        String description = parts[2];
+        int epicId = Integer.parseInt(parts[3]);
+        return new Task(id, name, description, epicId);
     }
 
     public static String getHeader() {
 
-        return "id,name,status,description,epicId";
+        return "id,name,description,epicId";
     }
 }
