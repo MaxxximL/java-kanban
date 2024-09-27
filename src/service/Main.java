@@ -13,7 +13,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         Path file = Paths.get("path/to/file");
         FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
 

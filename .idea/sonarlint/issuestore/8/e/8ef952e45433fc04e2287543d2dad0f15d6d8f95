@@ -1,7 +1,9 @@
 
+J
+java:S1068U"(Remove this unused "data" private field.(ËßÅ¡øÿÿÿÿ8Ø… À“2
+b
+java:S2175"@A "Map<String, Node>" cannot contain a "int" in a "String" type.(‡òÿüÿÿÿÿ8Å¦ò›£2
 L
 java:S3740*"/Provide the parametrized type for this generic.(†Ÿ¿8Íä«À“2
-J
-java:S1068V"(Remove this unused "data" private field.(ËßÅ¡øÿÿÿÿ8Ø… À“2
 H
-java:S1172Z"&Remove these unused method parameters.(Î‚­èûÿÿÿÿ8Ø… À“2
+java:S1172Y"&Remove these unused method parameters.(Î‚­èûÿÿÿÿ8Ø… À“2

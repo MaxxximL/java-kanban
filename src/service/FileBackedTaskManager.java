@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -33,14 +32,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             String line;
             List<Task> tasks = new ArrayList<>();
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
-                int id;
-                try {
-                    id = Integer.parseInt(parts[0]);
-                } catch (NumberFormatException e) {
 
-                    id = 0;
-                }
                 Task task = CSVFormatter.fromString(line);
                 tasks.add(task);
             }
@@ -77,19 +69,19 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void deleteTask(int id) {
+    public void deleteTask(String id) {
         super.deleteTask(id);
         save();
     }
 
     @Override
-    public void deleteEpic(int id) {
+    public void deleteEpic(String id) {
         super.deleteEpic(id);
         save();
     }
 
     @Override
-    public void deleteSubTask(int id) {
+    public void deleteSubTask(String id) {
         super.deleteSubTask(id);
         save();
     }
@@ -117,7 +109,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file.toFile()))) {
             bw.write(CSVFormatter.getHeader());
             bw.newLine();
-            for (Map.Entry<Integer, Task> entry : tasks.entrySet()) {
+            for (Map.Entry<String, Task> entry : tasks.entrySet()) {
                 bw.write(entry.getValue().toString());
 
                 bw.newLine();
