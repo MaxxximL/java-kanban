@@ -69,19 +69,19 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void deleteTask(String id) {
+    public void deleteTask(int id) {
         super.deleteTask(id);
         save();
     }
 
     @Override
-    public void deleteEpic(String id) {
+    public void deleteEpic(int id) {
         super.deleteEpic(id);
         save();
     }
 
     @Override
-    public void deleteSubTask(String id) {
+    public void deleteSubTask(int id) {
         super.deleteSubTask(id);
         save();
     }
@@ -109,7 +109,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file.toFile()))) {
             bw.write(CSVFormatter.getHeader());
             bw.newLine();
-            for (Map.Entry<String, Task> entry : tasks.entrySet()) {
+            for (Map.Entry<Integer, Task> entry : tasks.entrySet()) {
                 bw.write(entry.getValue().toString());
 
                 bw.newLine();

@@ -72,7 +72,7 @@ class TaskManagerTest {
     @Test
     public void testCreateSubTask() {
         Epic epic = new Epic("Epic 1", "Description 1");
-        SubTask subTask = new SubTask("SubTask 1", "Description 1", epic.getId());
+        SubTask subTask = new SubTask("SubTask 1", "Description 1", epic.getEpicId());
         SubTask createdSubTask = taskManager.createSubTask(subTask);
         assertEquals(subTask, createdSubTask);
     }
@@ -88,7 +88,7 @@ class TaskManagerTest {
     @Test
     public void testGetSubTaskById() {
         Epic epic = new Epic("Epic 1", "Description 1");
-        SubTask subTask = new SubTask("SubTask 1", "Description 1", epic.getId());
+        SubTask subTask = new SubTask("SubTask 1", "Description 1", epic.getEpicId());
         SubTask createdSubTask = taskManager.createSubTask(subTask);
         SubTask retrievedSubTask = taskManager.getSubTaskById(createdSubTask.getId());
         assertEquals(createdSubTask, retrievedSubTask);
@@ -122,9 +122,9 @@ class TaskManagerTest {
     @Test
     public void testUpdateSubTask() {
         Epic epic = new Epic("Epic 1", "Description 1");
-        SubTask subtask = new SubTask("Subtask 1", "Description 1", epic.getId());
+        SubTask subtask = new SubTask("Subtask 1", "Description 1", epic.getEpicId());
         SubTask createdSubtask = taskManager.createSubTask(subtask);
-        SubTask updatedSubtask = new SubTask("Updated Subtask 1", "Updated Description 1", epic.getId());
+        SubTask updatedSubtask = new SubTask("Updated Subtask 1", "Updated Description 1", epic.getEpicId());
         updatedSubtask.setId(createdSubtask.getId());
         taskManager.updateSubTask(updatedSubtask);
         assertEquals(updatedSubtask, taskManager.getSubTaskById(createdSubtask.getId()));
@@ -143,7 +143,7 @@ class TaskManagerTest {
     @Test
     public void testDeleteSubTask() {
         Epic epic = new Epic("Epic 1", "Description 1");
-        SubTask subTask = new SubTask("SubTask 1", "Description 1", epic.getId());
+        SubTask subTask = new SubTask("SubTask 1", "Description 1", epic.getEpicId());
         SubTask createdSubTask = taskManager.createSubTask(subTask);
         assertNotNull(taskManager.getSubTaskById(createdSubTask.getId()));
 

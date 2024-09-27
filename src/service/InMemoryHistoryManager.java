@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    private static Map<String, Node> nodeHashMap = new HashMap<>();
+    private static Map<Integer, Node> nodeHashMap = new HashMap<>();
     private Node head;
     private Node tail;
     private int size = 0;
@@ -23,7 +23,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     @Override
-    public void remove(String id) {
+    public void remove(int id) {
 
         Node node = nodeHashMap.remove(id);
 

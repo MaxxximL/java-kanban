@@ -11,14 +11,14 @@ import java.util.Map;
 
 public class InMemoryTaskManager implements TaskManager {
 
-    protected Map<String, Task> tasks = new HashMap<>();
-    private Map<String, Epic> epics = new HashMap<>();
-    private Map<String, SubTask> subTasks = new HashMap<>();
-    private String idCounter = null;
+    protected Map<Integer, Task> tasks = new HashMap<>();
+    private Map<Integer, Epic> epics = new HashMap<>();
+    private Map<Integer, SubTask> subTasks = new HashMap<>();
+    private int idCounter = 0;
     private HistoryManager historyManager = Managers.getDefaultHistory();
 
-    private String generateId() {
-        return idCounter;
+    private int generateId() {
+        return ++idCounter;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Task getTaskById(String id) {
+    public Task getTaskById(int id) {
         Task task = tasks.get(id);
         if (task != null) {
             historyManager.add(task);
@@ -55,7 +55,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Epic getEpicById(String id) {
+    public Epic getEpicById(int id) {
         Epic epic = epics.get(id);
         if (epic != null) {
             historyManager.add(epic);
@@ -64,7 +64,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public SubTask getSubTaskById(String id) {
+    public SubTask getSubTaskById(int id) {
         SubTask subTask = subTasks.get(id);
         if (subTask != null) {
             historyManager.add(subTask);
@@ -106,14 +106,14 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void deleteTask(String id) {
+    public void deleteTask(int id) {
         tasks.remove(id);
         historyManager.remove(id);
 
     }
 
     @Override
-    public void deleteEpic(String id) {
+    public void deleteEpic(int id) {
         Epic epic = epics.remove(id);
         if (epic != null) {
             for (SubTask subTask : epic.getSubTasks()) {
@@ -123,7 +123,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void deleteSubTask(String id) {
+    public void deleteSubTask(int id) {
         subTasks.remove(id);
 
     }

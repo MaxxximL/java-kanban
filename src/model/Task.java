@@ -5,11 +5,11 @@ import java.util.Objects;
 
 public class Task {
 
-    private  String id;
+    private  int id;
     private String name;
     protected Status status;
     private String description;
-    private String epicId;
+    private int epicId;
 
     public Task(String name, String description) {
         this.name = name;
@@ -17,7 +17,7 @@ public class Task {
         this.description = description;
     }
 
-    public Task(String id, String name, Status status, String description, String epicId) {
+    public Task(int id, String name, Status status, String description, int epicId) {
 
         this.id = id;
         this.name = name;
@@ -26,11 +26,11 @@ public class Task {
         this.epicId = epicId;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -58,7 +58,7 @@ public class Task {
         this.description = description;
     }
 
-    public String getEpicId() {
+    public int getEpicId() {
 
         return epicId;
     }
@@ -73,7 +73,7 @@ public class Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return id.equals(task.id);
+        return id == (task.id);
     }
 
     @Override
