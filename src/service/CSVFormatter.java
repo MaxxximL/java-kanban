@@ -1,5 +1,6 @@
 package service;
 
+import model.Status;
 import model.Task;
 
 public class CSVFormatter {
@@ -19,18 +20,18 @@ public class CSVFormatter {
                 .toString();
     }
 
-
     public static Task fromString(String value) {
         String[] parts = value.split(",");
         int id = Integer.parseInt(parts[0]);
         String name = parts[1];
-        String description = parts[2];
-        int epicId = Integer.parseInt(parts[3]);
-        return new Task(id, name, description, epicId);
+        Status status = Status.valueOf(parts[2]);
+        String description = parts[3];
+        int epicId = Integer.parseInt(parts[4]);
+        return new Task(id, name, status, description, epicId);
     }
 
     public static String getHeader() {
 
-        return "id,name,description,epicId";
+        return "id,name,status,description,epicId";
     }
 }

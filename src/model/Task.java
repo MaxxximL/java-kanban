@@ -17,7 +17,7 @@ public class Task {
         this.description = description;
     }
 
-    public Task(int id, String name, String description, int epicId) {
+    public Task(int id, String name, Status status, String description, int epicId) {
 
         this.id = id;
         this.name = name;
