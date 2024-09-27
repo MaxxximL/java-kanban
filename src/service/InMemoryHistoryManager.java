@@ -75,6 +75,7 @@ public class InMemoryHistoryManager implements HistoryManager {
             oldTail.prev = newNode;
         size++;
 
+
         nodeHashMap.put(task.getId(), newNode);
 
     }
