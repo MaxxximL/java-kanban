@@ -22,13 +22,9 @@ public class CSVFormatter {
 
     public static Task fromString(String value) {
         String[] parts = value.split(",");
-        int id;
-        try {
-            id = Integer.parseInt(parts[0]);
-        } catch (NumberFormatException e) {
-            // handle the error, for example by setting the id to 0
-            id = 0;
-        }
+
+           String id = parts[0];
+
 
         String name = parts[1];
         Status status = null;
@@ -39,7 +35,7 @@ public class CSVFormatter {
         }
         String description = parts[3];
         int epicId = Integer.parseInt(parts[0]); // changed from int to String
-        return new Task(id, name, status, description, epicId); // or use the int epicId as needed
+        return new Task(Integer.parseInt(id), name, status, description, epicId); // or use the int epicId as needed
     }
 
     public static String getHeader() {
