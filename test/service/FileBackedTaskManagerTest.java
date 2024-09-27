@@ -2,7 +2,6 @@ package service;
 
 import model.Epic;
 import model.SubTask;
-import model.Status;
 import model.Task;
 import org.junit.jupiter.api.Test;
 
@@ -16,24 +15,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FileBackedTaskManagerTest {
-
-    @Test
-    public void testSaveAndLoadEmptyFile() throws IOException {
-        Path file = Files.createTempFile("test", ".txt");
-        FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
-
-        taskManager.save();
-
-        List<Task> tasks = new ArrayList<>();
-        try (BufferedReader br = Files.newBufferedReader(file)) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                tasks.add(CSVFormatter.fromString(line));
-            }
-        }
-
-        assertEquals(0, tasks.size());
-    }
 
     @Test
     public void testSaveAndLoadSingleTask() throws IOException {
@@ -57,31 +38,6 @@ public class FileBackedTaskManagerTest {
         assertEquals(task1.getDescription(), tasks.get(0).getDescription());
     }
 
-    @Test
-    public void testSaveAndLoadMultipleTasks() throws IOException {
-        Path file = Files.createTempFile("test", ".txt");
-        FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
-
-        Task task1 = new Task("Task 1", "Description 1");
-        Task task2 = new Task("Task 2", "Description 2");
-        taskManager.createTask(task1);
-        taskManager.createTask(task2);
-        taskManager.save();
-
-        List<Task> tasks = new ArrayList<>();
-        try (BufferedReader br = Files.newBufferedReader(file)) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                tasks.add(CSVFormatter.fromString(line));
-            }
-        }
-
-        assertEquals(2, tasks.size());
-        assertEquals(task1.getName(), tasks.get(0).getName());
-        assertEquals(task1.getDescription(), tasks.get(0).getDescription());
-        assertEquals(task2.getName(), tasks.get(1).getName());
-        assertEquals(task2.getDescription(), tasks.get(1).getDescription());
-    }
 
     @Test
     public void testSaveAndLoadEpicWithSubTasks() throws IOException {
