@@ -22,10 +22,7 @@ public class CSVFormatter {
 
     public static Task fromString(String value) {
         String[] parts = value.split(",");
-
-           String id = parts[0];
-
-
+        int id = Integer.parseInt(parts[0]);
         String name = parts[1];
         Status status = null;
         try {
@@ -34,10 +31,9 @@ public class CSVFormatter {
             // handle the error here, for example by logging it or throwing a custom exception
         }
         String description = parts[3];
-        int epicId = Integer.parseInt(parts[0]); // changed from int to String
-        return new Task(Integer.parseInt(id), name, status, description, epicId); // or use the int epicId as needed
+        int epicId = Integer.parseInt(parts[4]);
+        return new Task(id, name, status, description, epicId);
     }
-
     public static String getHeader() {
 
         return "id,name,status,description,epicId";
