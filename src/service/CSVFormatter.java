@@ -1,9 +1,6 @@
 package service;
 
-import model.Status;
 import model.Task;
-
-import java.io.IOException;
 
 public class CSVFormatter {
 
