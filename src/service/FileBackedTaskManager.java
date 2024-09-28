@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import java.nio.file.Paths;
+import java.util.List;
+
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private Path file;
@@ -123,5 +126,20 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         } catch (IOException e) {
             throw new ManagerSaveException("Error loading from file", e);
         }
+    }
+
+    public static void main(String[] args) {
+        Path file = Paths.get("tasks.csv");
+        FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
+
+        List<Task> loadedTasks = taskManager.getAllTasks();
+        for (Task task : loadedTasks) {
+            System.out.println(task.toString());
+        }
+
+        Task newTask = new Task("New Task", "Description");
+        taskManager.createTask(newTask);
+
+        taskManager.save();
     }
 }
