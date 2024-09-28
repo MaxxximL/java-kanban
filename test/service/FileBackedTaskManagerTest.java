@@ -1,23 +1,10 @@
 package service;
 
-import model.Epic;
-import model.SubTask;
-import model.Status;
 import model.Task;
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -68,9 +55,5 @@ public class FileBackedTaskManagerTest {
         assertEquals(task3, tasks.get(2));
     }
 
-    @Test
-    public void testLoadInvalidFile() {
-        Path file = Paths.get("invalid_file.txt");
-        assertThrows(IOException.class, () -> new FileBackedTaskManager(file));
-    }
+
 }

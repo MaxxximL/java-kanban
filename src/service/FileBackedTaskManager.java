@@ -12,7 +12,6 @@ import java.nio.file.Path;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
-    private static final String PATH_TO_FILE = "/resources/path/to/file";
     private Path file;
 
     public FileBackedTaskManager(Path file) {
@@ -25,7 +24,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     public static FileBackedTaskManager loadFromFile(Path file) {
-        FileBackedTaskManager taskManager = new FileBackedTaskManager(Path.of(PATH_TO_FILE));
+        FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
         try (BufferedReader br = Files.newBufferedReader(file)) {
             String line;
             while ((line = br.readLine()) != null) {
