@@ -26,8 +26,8 @@ public class CSVFormatter {
         String name = parts[1];
         Status status = Status.valueOf(parts[2]);
         String description = parts[3];
-        int epicId = Integer.parseInt(parts[4]);
-        return new Task(id, name, status, description, epicId);
+        String epicId = parts[4]; // change to string
+        return new Task(id, name, status, description, Integer.parseInt(epicId));
     }
 
     public static String getHeader() {

@@ -5,9 +5,9 @@ import java.util.Objects;
 
 public class Task {
 
-    private  int id;
-    private String name;
     protected Status status;
+    private int id;
+    private String name;
     private String description;
     private int epicId;
 
@@ -86,3 +86,4 @@ public class Task {
                 '}';
     }
 }
+
