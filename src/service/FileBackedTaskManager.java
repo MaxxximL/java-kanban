@@ -17,9 +17,13 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     public FileBackedTaskManager(Path file) {
         this.file = file;
         try {
-            Files.createFile(file);
+            if (Files.exists(file)) {
+                loadFromFile();
+            } else {
+                Files.createFile(file);
+            }
         } catch (IOException e) {
-            throw new ManagerSaveException("Error creating file", e);
+            throw new ManagerSaveException("Error creating or loading file", e);
         }
     }
 
@@ -97,6 +101,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 
+
     public void save() {
         try (BufferedWriter bw = Files.newBufferedWriter(file)) {
             for (Task task : tasks.values()) {
@@ -105,6 +110,18 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             }
         } catch (IOException e) {
             throw new ManagerSaveException("Error saving to file", e);
+        }
+    }
+
+    private void loadFromFile() {
+        try (BufferedReader br = Files.newBufferedReader(file)) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                Task task = CSVFormatter.fromString(line);
+                createTask(task);
+            }
+        } catch (IOException e) {
+            throw new ManagerSaveException("Error loading from file", e);
         }
     }
 }

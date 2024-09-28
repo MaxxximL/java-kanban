@@ -8,6 +8,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import java.io.File;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -15,8 +17,8 @@ public class FileBackedTaskManagerTest {
 
     @Test
     public void testSaveAndLoadEmptyFile() throws IOException {
-        Path file = Paths.get("temp.txt");
-        FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
+        File tempFile = File.createTempFile("temp", ".txt");
+        FileBackedTaskManager taskManager = new FileBackedTaskManager(tempFile.toPath());
         taskManager.save();
 
         List<Task> tasks = taskManager.getAllTasks();
@@ -25,8 +27,8 @@ public class FileBackedTaskManagerTest {
 
     @Test
     public void testSaveAndLoadSingleTask() throws IOException {
-        Path file = Paths.get("temp.txt");
-        FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
+        File tempFile = File.createTempFile("temp", ".txt");
+        FileBackedTaskManager taskManager = new FileBackedTaskManager(tempFile.toPath());
         Task task = new Task("Task 1", "Description 1");
         taskManager.createTask(task);
         taskManager.save();
@@ -38,8 +40,8 @@ public class FileBackedTaskManagerTest {
 
     @Test
     public void testSaveAndLoadMultipleTasks() throws IOException {
-        Path file = Paths.get("temp.txt");
-        FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
+        File tempFile = File.createTempFile("temp", ".txt");
+        FileBackedTaskManager taskManager = new FileBackedTaskManager(tempFile.toPath());
         Task task1 = new Task("Task 1", "Description 1");
         Task task2 = new Task("Task 2", "Description 2");
         Task task3 = new Task("Task 3", "Description 3");
