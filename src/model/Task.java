@@ -26,6 +26,35 @@ public class Task {
         this.epicId = epicId;
     }
 
+    public Task(String name, Status status) {
+        this.name = name;
+        this.status = Status.NEW;
+
+    }
+
+    public Task(int id, String description, Status status) {
+        this.id = id;
+        this.description = description;
+        this.status = Status.NEW;
+    }
+
+    public Task(int id, String name, String description, Status status) {
+
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.status = Status.NEW;
+    }
+
+    public Task(int id, String name, String description) {
+
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
+
+
     public int getId() {
         return id;
     }
