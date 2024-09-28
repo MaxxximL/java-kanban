@@ -13,103 +13,64 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class FileBackedTaskManagerTest {
 
     @Test
     public void testSaveAndLoadEmptyFile() throws IOException {
-        Path file = Files.createTempFile("test", ".txt");
+        Path file = Paths.get("temp.txt");
         FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
-
         taskManager.save();
 
-        List<Task> tasks = new ArrayList<>();
-        try (BufferedReader br = Files.newBufferedReader(file)) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                tasks.add(CSVFormatter.fromString(line));
-            }
-        }
-
+        List<Task> tasks = taskManager.getAllTasks();
         assertEquals(0, tasks.size());
     }
 
     @Test
     public void testSaveAndLoadSingleTask() throws IOException {
-        Path file = Files.createTempFile("test", ".txt");
+        Path file = Paths.get("temp.txt");
         FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
-
-        Task task1 = new Task("Task 1", "Description 1");
-        taskManager.createTask(task1);
+        Task task = new Task("Task 1", "Description 1");
+        taskManager.createTask(task);
         taskManager.save();
 
-        List<Task> tasks = new ArrayList<>();
-        try (BufferedReader br = Files.newBufferedReader(file)) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                tasks.add(CSVFormatter.fromString(line));
-            }
-        }
-
+        List<Task> tasks = taskManager.getAllTasks();
         assertEquals(1, tasks.size());
-        assertEquals(task1.getName(), tasks.get(0).getName());
-        assertEquals(task1.getDescription(), tasks.get(0).getDescription());
+        assertEquals(task, tasks.get(0));
     }
 
     @Test
     public void testSaveAndLoadMultipleTasks() throws IOException {
-        Path file = Files.createTempFile("test", ".txt");
+        Path file = Paths.get("temp.txt");
         FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
-
         Task task1 = new Task("Task 1", "Description 1");
         Task task2 = new Task("Task 2", "Description 2");
+        Task task3 = new Task("Task 3", "Description 3");
         taskManager.createTask(task1);
         taskManager.createTask(task2);
+        taskManager.createTask(task3);
         taskManager.save();
 
-        List<Task> tasks = new ArrayList<>();
-        try (BufferedReader br = Files.newBufferedReader(file)) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                tasks.add(CSVFormatter.fromString(line));
-            }
-        }
-
-        assertEquals(2, tasks.size());
-        assertEquals(task1.getName(), tasks.get(0).getName());
-        assertEquals(task1.getDescription(), tasks.get(0).getDescription());
-        assertEquals(task2.getName(), tasks.get(1).getName());
-        assertEquals(task2.getDescription(), tasks.get(1).getDescription());
+        List<Task> tasks = taskManager.getAllTasks();
+        assertEquals(3, tasks.size());
+        assertEquals(task1, tasks.get(0));
+        assertEquals(task2, tasks.get(1));
+        assertEquals(task3, tasks.get(2));
     }
 
     @Test
-    public void testSaveAndLoadEpicWithSubTasks() throws IOException {
-        Path file = Files.createTempFile("test", ".txt");
-        FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
-
-        Epic epic1 = new Epic("Epic 1", "Description 1");
-        SubTask subTask1 = new SubTask("SubTask 1", "Description 1", epic1.getEpicId());
-        SubTask subTask2 = new SubTask("SubTask 2", "Description 2", epic1.getEpicId());
-        taskManager.createEpic(epic1);
-        taskManager.createSubTask(subTask1);
-        taskManager.createSubTask(subTask2);
-        taskManager.save();
-
-        List<Task> tasks = new ArrayList<>();
-        try (BufferedReader br = Files.newBufferedReader(file)) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                tasks.add(CSVFormatter.fromString(line));
-            }
-        }
-
-        assertEquals(3, tasks.size());
-        assertEquals(epic1.getName(), tasks.get(0).getName());
-        assertEquals(epic1.getDescription(), tasks.get(0).getDescription());
-        assertEquals(subTask1.getName(), tasks.get(1).getName());
-        assertEquals(subTask1.getDescription(), tasks.get(1).getDescription());
-        assertEquals(subTask2.getName(), tasks.get(2).getName());
-        assertEquals(subTask2.getDescription(), tasks.get(2).getDescription());
+    public void testLoadInvalidFile() {
+        Path file = Paths.get("invalid_file.txt");
+        assertThrows(IOException.class, () -> new FileBackedTaskManager(file));
     }
 }

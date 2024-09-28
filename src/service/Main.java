@@ -31,7 +31,7 @@ public class Main {
 
         taskManager.save();
 
-        FileBackedTaskManager loadedTaskManager = FileBackedTaskManager.loadFromFile();
+        FileBackedTaskManager loadedTaskManager = FileBackedTaskManager.loadFromFile(file);
         List<Task> tasks = loadedTaskManager.getAllTasks();
         System.out.println(tasks);
 

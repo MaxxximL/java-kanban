@@ -10,37 +10,26 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import java.io.File;
+
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
+    private Path file;
+
     private static final String PATH_TO_FILE = "/resources/path/to/file";
-    private final Path file;
 
     public FileBackedTaskManager(Path file) {
-
         this.file = file;
-
-    }
-
-    public static FileBackedTaskManager loadFromFile() {
-        FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(Path.of(PATH_TO_FILE));
-
-        try (BufferedReader br = Files.newBufferedReader(Path.of(PATH_TO_FILE))) {
-            String line;
-            List<Task> tasks = new ArrayList<>();
-            while ((line = br.readLine()) != null) {
-
-                Task task = CSVFormatter.fromString(line);
-                tasks.add(task);
-            }
-
+        try {
+            Files.createFile(file);
         } catch (IOException e) {
-            throw ManagerSaveException.loadException(e);
+            throw new ManagerSaveException("Error creating file", e);
         }
-        return fileBackedTaskManager;
     }
 
 
@@ -105,20 +94,29 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 
-    protected void save() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file.toFile()))) {
-            bw.write(CSVFormatter.getHeader());
-            bw.newLine();
-            for (Map.Entry<Integer, Task> entry : tasks.entrySet()) {
-                bw.write(entry.getValue().toString());
 
+    public void save() {
+        try (BufferedWriter bw = Files.newBufferedWriter(file)) {
+            for (Task task : tasks.values()) {
+                bw.write(CSVFormatter.toString(task));
                 bw.newLine();
             }
         } catch (IOException e) {
-            throw ManagerSaveException.saveException(e);
-
+            throw new ManagerSaveException("Error saving to file", e);
         }
-
     }
 
+    public static FileBackedTaskManager loadFromFile(Path file) {
+        FileBackedTaskManager taskManager = new FileBackedTaskManager(Path.of(PATH_TO_FILE));
+        try (BufferedReader br = Files.newBufferedReader(file)) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                Task task = CSVFormatter.fromString(line);
+                taskManager.createTask(task);
+            }
+        } catch (IOException e) {
+            throw new ManagerSaveException("Error loading from file", e);
+        }
+        return taskManager;
+    }
 }
