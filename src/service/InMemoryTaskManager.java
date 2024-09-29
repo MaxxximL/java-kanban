@@ -12,9 +12,9 @@ import java.util.Map;
 public class InMemoryTaskManager implements TaskManager {
 
     protected Map<Integer, Task> tasks = new HashMap<>();
-    private Map<Integer, Epic> epics = new HashMap<>();
-    private Map<Integer, SubTask> subTasks = new HashMap<>();
-    private int idCounter = 0;
+    protected Map<Integer, Epic> epics = new HashMap<>();
+    protected Map<Integer, SubTask> subTasks = new HashMap<>();
+    protected int idCounter = 0;
     private HistoryManager historyManager = Managers.getDefaultHistory();
 
     private int generateId() {
@@ -79,7 +79,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public List<Epic> getAllEpics() {
+    public  List<Epic> getAllEpics() {
         return new ArrayList<>(epics.values());
     }
 

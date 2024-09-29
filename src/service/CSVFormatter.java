@@ -2,6 +2,8 @@ package service;
 
 import model.Status;
 import model.Task;
+import model.SubTask;
+import model.Epic;
 
 public class CSVFormatter {
 
@@ -16,9 +18,30 @@ public class CSVFormatter {
                 .append(task.getName()).append(",")
                 .append(task.getStatus()).append(",")
                 .append(task.getDescription()).append(",")
-                .append(task.getEpicId())
                 .toString();
     }
+
+    public static String toString(SubTask task) {
+
+        return new StringBuilder()
+                .append(task.getId()).append(",")
+                .append(task.getName()).append(",")
+                .append(task.getStatus()).append(",")
+                .append(task.getDescription()).append(",")
+                .toString();
+    }
+
+    public static String toString(Epic task) {
+
+        return new StringBuilder()
+                .append(task.getId()).append(",")
+                .append(task.getName()).append(",")
+                .append(task.getStatus()).append(",")
+                .append(task.getDescription()).append(",")
+                .toString();
+    }
+
+
 
     public static Task fromString(String value) {
         String[] parts = value.split(",");
@@ -36,7 +59,6 @@ public class CSVFormatter {
     }
 
     public static String getHeader() {
-
         return "id,name,status,description,epicId";
     }
 }

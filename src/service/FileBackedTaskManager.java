@@ -38,6 +38,12 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 Task task = CSVFormatter.fromString(line);
                 taskManager.createTask(task);
             }
+            for (Epic epic : taskManager.getAllEpics()) {
+                for (SubTask subTask : epic.getSubTasks()) {
+                    taskManager.createSubTask(subTask);
+                }
+            }
+
         } catch (IOException e) {
             throw new ManagerSaveException("Error loading from file", e);
         }
@@ -107,9 +113,19 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     public void save() {
         try (BufferedWriter bw = Files.newBufferedWriter(file)) {
+            bw.write(CSVFormatter.getHeader());
+            bw.newLine();
             for (Task task : tasks.values()) {
                 bw.write(CSVFormatter.toString(task));
                 bw.newLine();
+            }
+            for (Epic epic : epics.values()) {
+                bw.write(CSVFormatter.toString(epic));
+                bw.newLine();
+                for (SubTask subTask : epic.getSubTasks()) {
+                    bw.write(CSVFormatter.toString(subTask));
+                    bw.newLine();
+                }
             }
         } catch (IOException e) {
             throw new ManagerSaveException("Error saving to file", e);
@@ -119,10 +135,19 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     private void loadFromFile() {
         try (BufferedReader br = Files.newBufferedReader(file)) {
             String line;
+            int maxId = 0;
             while ((line = br.readLine()) != null) {
                 Task task = CSVFormatter.fromString(line);
-                createTask(task);
+                tasks.put(task.getId(), task);
+                if (task instanceof Epic) {
+                    Epic epic = (Epic) task;
+                    for (SubTask subTask : epic.getSubTasks()) {
+                        tasks.put(subTask.getId(), subTask);
+                    }
+                }
+                maxId = Math.max(maxId, task.getId());
             }
+            idCounter = maxId + 1;
         } catch (IOException e) {
             throw new ManagerSaveException("Error loading from file", e);
         }
@@ -130,16 +155,41 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     public static void main(String[] args) {
         Path file = Paths.get("tasks.csv");
-        FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
+        FileBackedTaskManager taskManager = FileBackedTaskManager.loadFromFile(file);
 
-        List<Task> loadedTasks = taskManager.getAllTasks();
-        for (Task task : loadedTasks) {
-            System.out.println(task.toString());
-        }
+        Task task1 = new Task("Task 1", "Description 1");
+        Task task2 = new Task("Task 2", "Description 2");
+        Epic epic1 = new Epic("Epic 1", "Description 1");
+        SubTask subTask1 = new SubTask("SubTask 1", "Description 1", epic1.getId());
+        SubTask subTask2 = new SubTask("SubTask 2", "Description 2", epic1.getId());
 
-        Task newTask = new Task("New Task", "Description");
-        taskManager.createTask(newTask);
+        taskManager.createTask(task1);
+        taskManager.createTask(task2);
+        taskManager.createEpic(epic1);
+        taskManager.createSubTask(subTask1);
+        taskManager.createSubTask(subTask2);
 
-        taskManager.save();
+        System.out.println("Tasks: " + taskManager.getAllTasks());
+        System.out.println("Epics: " + taskManager.getAllEpics());
+        System.out.println("SubTasks: " + taskManager.getAllSubTasks());
+
+        taskManager.updateTask(task1);
+        taskManager.updateEpic(epic1);
+        taskManager.updateSubTask(subTask1);
+        taskManager.updateSubTask(subTask2);
+
+        System.out.println("Updated Tasks: " + taskManager.getAllTasks());
+        System.out.println("Updated Epics: " + taskManager.getAllEpics());
+        System.out.println("Updated SubTasks: " + taskManager.getAllSubTasks());
+
+        taskManager.deleteTask(task1.getId());
+        taskManager.deleteEpic(epic1.getId());
+        taskManager.deleteSubTask(subTask1.getId());
+        taskManager.deleteSubTask(subTask2.getId());
+
+        System.out.println("After deletion: ");
+        System.out.println("Tasks: " + taskManager.getAllTasks());
+        System.out.println("Epics: " + taskManager.getAllEpics());
+        System.out.println("SubTasks: " + taskManager.getAllSubTasks());
     }
 }

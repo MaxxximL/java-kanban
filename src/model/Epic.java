@@ -5,6 +5,13 @@ import java.util.List;
 
 public class Epic extends Task {
 
+    private int epicId;
+
+    public Epic(int id, String name, Status status, String description, int epicId) {
+        super(id, name, status, description, epicId);
+        this.epicId = epicId;
+    }
+
     private List<SubTask> subTasks = new ArrayList<>();
 
     public Epic(String name, String description) {
@@ -25,6 +32,11 @@ public class Epic extends Task {
 
     public void removeSubTask(SubTask subTask) {
         subTasks.remove(subTask);
+    }
+
+    public int getEpicId() {
+
+        return epicId;
     }
 
     @Override

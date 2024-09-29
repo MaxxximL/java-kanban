@@ -14,8 +14,6 @@ F
 src/model/Subtask.java,6\b\6bba45984ebbd1cd2e9eadd49ae201ac02cd181d
 E
 src/model/Status.java,9\4\9426782f3e2fa53e0e77506ab5c68ba1dd2a0228
-E
-src/service/Main.java,7\0\70c0b806c75795fc26781cdcdf6ff93e018f251c
 L
 src/service/TaskManager.java,1\4\14476f16f6c7eb829542a2e3c1afc4b55c05cfe8
 F
@@ -48,3 +46,5 @@ C
 invalid_file.txt,a\4\a4f63d91c7efdc7957a7d1d2bce151fab472fcd9
 8
 temp.txt,4\5\45ebed19db9cfb3cea503d6b62a50ffe6b30247c
+9
+	tasks.csv,c\a\ca3f0cf937a9ff065df723d0aeced5355330a301

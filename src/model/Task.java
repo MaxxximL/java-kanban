@@ -9,7 +9,7 @@ public class Task {
     private int id;
     private String name;
     private String description;
-    private int epicId;
+
 
     public Task(String name, String description) {
         this.name = name;
@@ -23,7 +23,7 @@ public class Task {
         this.name = name;
         this.status = Status.NEW;
         this.description = description;
-        this.epicId = epicId;
+
     }
 
     public Task(String name, Status status) {
@@ -87,10 +87,7 @@ public class Task {
         this.description = description;
     }
 
-    public int getEpicId() {
 
-        return epicId;
-    }
 
     @Override
     public int hashCode() {
