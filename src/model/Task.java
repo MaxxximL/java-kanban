@@ -53,6 +53,9 @@ public class Task {
         this.description = description;
     }
 
+    public TaskType getType() {
+        return TaskType.TASK;
+    }
 
     public int getId() {
         return id;

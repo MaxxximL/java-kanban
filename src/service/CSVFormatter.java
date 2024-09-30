@@ -28,6 +28,7 @@ public class CSVFormatter {
                 .append(task.getName()).append(",")
                 .append(task.getStatus()).append(",")
                 .append(task.getDescription()).append(",")
+                .append(task.getEpicId())
                 .toString();
     }
 
@@ -46,12 +47,7 @@ public class CSVFormatter {
         String[] parts = value.split(",");
         String id = parts[0];
         String name = parts[1];
-        Status status = null;
-        try {
-            status = Status.valueOf(parts[2]);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Ошибка статуса");
-        }
+        Status status = Status.valueOf(parts[2]);
         String description = parts[3];
         String epicId = parts[4];
         return new Task(Integer.parseInt(id), name, status, description, Integer.parseInt(epicId));

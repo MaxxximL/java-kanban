@@ -3,6 +3,7 @@ package service;
 import model.Epic;
 import model.SubTask;
 import model.Task;
+import model.TaskType;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -55,37 +56,20 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         Task task1 = new Task("Task 1", "Description 1");
         Task task2 = new Task("Task 2", "Description 2");
         Epic epic1 = new Epic("Epic 1", "Description 1");
-        SubTask subTask1 = new SubTask("SubTask 1", "Description 1", epic1.getId());
-        SubTask subTask2 = new SubTask("SubTask 2", "Description 2", epic1.getId());
+        SubTask subTask1 = new SubTask("SubTask 1", "Description 1", epic1);
+
 
         taskManager.createTask(task1);
         taskManager.createTask(task2);
         taskManager.createEpic(epic1);
         taskManager.createSubTask(subTask1);
-        taskManager.createSubTask(subTask2);
+
 
         System.out.println("Tasks: " + taskManager.getAllTasks());
         System.out.println("Epics: " + taskManager.getAllEpics());
         System.out.println("SubTasks: " + taskManager.getAllSubTasks());
 
-        taskManager.updateTask(task1);
-        taskManager.updateEpic(epic1);
-        taskManager.updateSubTask(subTask1);
-        taskManager.updateSubTask(subTask2);
 
-        System.out.println("Updated Tasks: " + taskManager.getAllTasks());
-        System.out.println("Updated Epics: " + taskManager.getAllEpics());
-        System.out.println("Updated SubTasks: " + taskManager.getAllSubTasks());
-
-        taskManager.deleteTask(task1.getId());
-        taskManager.deleteEpic(epic1.getId());
-        taskManager.deleteSubTask(subTask1.getId());
-        taskManager.deleteSubTask(subTask2.getId());
-
-        System.out.println("After deletion: ");
-        System.out.println("Tasks: " + taskManager.getAllTasks());
-        System.out.println("Epics: " + taskManager.getAllEpics());
-        System.out.println("SubTasks: " + taskManager.getAllSubTasks());
     }
 
     @Override
@@ -172,17 +156,29 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     private void loadFromFile() {
         try (BufferedReader br = Files.newBufferedReader(file)) {
             String line;
-            int maxId = 0;
+            int maxId = -1;
             while ((line = br.readLine()) != null) {
                 Task task = CSVFormatter.fromString(line);
-                tasks.put(task.getId(), task);
-                if (task instanceof Epic) {
+                TaskType type = task.getType(); // call the new method to get the type of the task
+
+                if (type == TaskType.TASK) {
+                    tasks.put(task.getId(), task);
+                    maxId = Math.max(maxId, task.getId());
+                } else if (type == TaskType.EPIC) {
                     Epic epic = (Epic) task;
+                    tasks.put(task.getId(), epic);
+                    epics.put(task.getId(), epic);
                     for (SubTask subTask : epic.getSubTasks()) {
                         tasks.put(subTask.getId(), subTask);
                     }
+                    maxId = Math.max(maxId, task.getId());
+                } else if (type == TaskType.SUBTASK) {
+                    SubTask subTask = (SubTask) task;
+                    tasks.put(task.getId(), subTask);
+                    Epic epic = subTask.getEpic();
+                    epics.put(subTask.getId(), epic);
+                    maxId = Math.max(maxId, task.getId());
                 }
-                maxId = Math.max(maxId, task.getId());
             }
             idCounter = maxId + 1;
         } catch (IOException e) {
