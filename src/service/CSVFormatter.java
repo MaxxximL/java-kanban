@@ -1,9 +1,9 @@
 package service;
 
-import model.Status;
-import model.Task;
-import model.SubTask;
 import model.Epic;
+import model.Status;
+import model.SubTask;
+import model.Task;
 
 public class CSVFormatter {
 
@@ -40,7 +40,6 @@ public class CSVFormatter {
                 .append(task.getDescription()).append(",")
                 .toString();
     }
-
 
 
     public static Task fromString(String value) {

@@ -54,7 +54,6 @@ public class Task {
     }
 
 
-
     public int getId() {
         return id;
     }
@@ -86,7 +85,6 @@ public class Task {
     public void setDescription(String description) {
         this.description = description;
     }
-
 
 
     @Override
