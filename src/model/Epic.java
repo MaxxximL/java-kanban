@@ -15,11 +15,6 @@ public class Epic extends Task {
         return subTasks;
     }
 
-    @Override
-    public TaskType getType() {
-        return TaskType.EPIC;
-    }
-
     public void addSubTask(SubTask subTask) {
         subTasks.add(subTask);
     }

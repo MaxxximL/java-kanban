@@ -55,14 +55,14 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
         Task task1 = new Task("Task 1", "Description 1");
         Task task2 = new Task("Task 2", "Description 2");
-        Epic epic1 = new Epic("Epic 1", "Description 1");
-        SubTask subTask1 = new SubTask("SubTask 1", "Description 1", epic1);
+        Epic epic = new Epic("Epic 1", "Description 1");
+        SubTask subTask = new SubTask("SubTask 1", "Description 1", epic.getId());
 
 
         taskManager.createTask(task1);
         taskManager.createTask(task2);
-        taskManager.createEpic(epic1);
-        taskManager.createSubTask(subTask1);
+        taskManager.createEpic(epic);
+        taskManager.createSubTask(subTask);
 
 
         System.out.println("Tasks: " + taskManager.getAllTasks());
@@ -159,26 +159,23 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             int maxId = -1;
             while ((line = br.readLine()) != null) {
                 Task task = CSVFormatter.fromString(line);
-                TaskType type = task.getType(); // call the new method to get the type of the task
+                TaskType type = task.getType();
 
                 if (type == TaskType.TASK) {
                     tasks.put(task.getId(), task);
-                    maxId = Math.max(maxId, task.getId());
+
                 } else if (type == TaskType.EPIC) {
                     Epic epic = (Epic) task;
-                    tasks.put(task.getId(), epic);
                     epics.put(task.getId(), epic);
-                    for (SubTask subTask : epic.getSubTasks()) {
-                        tasks.put(subTask.getId(), subTask);
-                    }
-                    maxId = Math.max(maxId, task.getId());
+
                 } else if (type == TaskType.SUBTASK) {
                     SubTask subTask = (SubTask) task;
-                    tasks.put(task.getId(), subTask);
-                    Epic epic = subTask.getEpic();
-                    epics.put(subTask.getId(), epic);
-                    maxId = Math.max(maxId, task.getId());
+                    subTasks.put(task.getId(), subTask);
+                    final int epicId = subTask.getEpicId();
+                    epics.get(epicId).getSubTasks().add(subTask);
+
                 }
+                maxId = Math.max(maxId, task.getId());
             }
             idCounter = maxId + 1;
         } catch (IOException e) {
