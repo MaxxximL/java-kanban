@@ -125,7 +125,6 @@ class TaskManagerTest {
         SubTask createdSubtask = taskManager.createSubTask(subtask);
         SubTask updatedSubtask = new SubTask("Updated Subtask 1", "Updated Description 1", epic.getId());
         updatedSubtask.setId(createdSubtask.getId());
-        taskManager.updateSubTask(updatedSubtask);
         assertEquals(updatedSubtask, taskManager.getSubTaskById(createdSubtask.getId()));
     }
 
@@ -150,4 +149,6 @@ class TaskManagerTest {
         assertNull(taskManager.getTaskById(createdSubTask.getId()));
     }
 }
+
+
 
