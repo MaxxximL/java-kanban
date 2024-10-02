@@ -10,14 +10,10 @@ O
 java-kanban.iml,d\f\df5dcbbd3f931c7c23855ccec11732ab4c8544f2
 C
 src/model/Task.java,f\8\f832a384be168e161b98ea99b51d3c78b15a5a6b
-C
-src/model/Epic.java,1\5\15fb8ff594e3a81ac2d9c626287e891985bba15d
 F
 src/model/Subtask.java,6\b\6bba45984ebbd1cd2e9eadd49ae201ac02cd181d
 E
 src/model/Status.java,9\4\9426782f3e2fa53e0e77506ab5c68ba1dd2a0228
-E
-src/service/Main.java,7\0\70c0b806c75795fc26781cdcdf6ff93e018f251c
 L
 src/service/TaskManager.java,1\4\14476f16f6c7eb829542a2e3c1afc4b55c05cfe8
 F
@@ -32,7 +28,23 @@ W
 'src/service/InMemoryHistoryManager.java,8\e\8ef952e45433fc04e2287543d2dad0f15d6d8f95
 Q
 !test/service/TaskManagerTest.java,2\b\2b4b739109f9626d110e4be1108ea081f3d45309
-S
-#.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
 T
 $test/service/HistoryManagerTest.java,9\c\9c45b95be3f811ca37688b1299202d08d5f95b09
+G
+src/model/TaskType.java,7\8\78dd8e95092ea79341f9e9a313b063a65706fbb3
+M
+src/service/CSVFormatter.java,b\d\bdb0139641ad5ba6235f3ee6030d338d58d0b0e4
+U
+%src/service/ManagerSaveException.java,5\b\5b7f83f0f97a9d3aa3447976e3bed4b5a195ebc5
+[
++test/service/FileBackedTaskManagerTest.java,d\4\d42ef020c62f959022c1be9889b003d26a420cb9
+V
+&src/service/FileBackedTaskManager.java,f\0\f0227886215233fad1b6b3adf426293f7f076983
+C
+src/model/Epic.java,1\5\15fb8ff594e3a81ac2d9c626287e891985bba15d
+@
+invalid_file.txt,a\4\a4f63d91c7efdc7957a7d1d2bce151fab472fcd9
+8
+temp.txt,4\5\45ebed19db9cfb3cea503d6b62a50ffe6b30247c
+9
+	tasks.csv,c\a\ca3f0cf937a9ff065df723d0aeced5355330a301
