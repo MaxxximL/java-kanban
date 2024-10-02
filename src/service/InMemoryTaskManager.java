@@ -38,14 +38,15 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public SubTask createSubTask(SubTask subTask) {
+        Epic epic = epics.get(subTask.getEpicId());
+        if (epic == null) {
+            throw new IllegalArgumentException("Epic with ID " + subTask.getEpicId() + " not found.");
+        }
         subTask.setId(generateId());
         subTasks.put(subTask.getId(), subTask);
-        for (Epic epic : epics.values()) {
-            if (epic.getSubTasks().contains(subTask)) {
-                epic.addSubTask(subTask);
-                break;
-            }
-        }
+        epic.addSubTask(subTask);
+        updateEpicStatus(epic);
+
         return subTask;
     }
 
@@ -107,9 +108,22 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void updateSubTask(SubTask subTask) {
+
+        SubTask oldSubTask = subTasks.get(subTask.getId());
+        if (oldSubTask == null) {
+            throw new IllegalArgumentException("SubTask with ID " + subTask.getId() + " not found.");
+        }
+
+        Epic epic = epics.get(oldSubTask.getEpicId());
+        if (epic != null) {
+            epic.removeSubTask(oldSubTask);
+        }
+
         subTasks.put(subTask.getId(), subTask);
-        Epic epic = epics.get(subTask.getEpicId());
-        updateEpicStatus(epic);
+        if (epic != null) {
+            epic.addSubTask(subTask);
+            updateEpicStatus(epic);
+        }
     }
 
     @Override
@@ -131,10 +145,12 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteSubTask(int id) {
-        SubTask subTask = subTasks.remove(id);
-        if (subTask != null) {
-            historyManager.remove(id);
-        }
+        SubTask subTask = subTasks.get(id);
+        Epic epic = epics.get(subTask.getEpicId());
+        epic.removeSubTask(subTask);
+        subTasks.remove(id);
+        updateEpicStatus(epic);
+
     }
 
 
@@ -144,9 +160,8 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     private void updateEpicStatus(Epic epic) {
-        epic.setStatus(epic.getStatus());
-        epics.put(epic.getId(), epic);
 
+        Managers.updatedEpicStatus(epic);
     }
 }
 
