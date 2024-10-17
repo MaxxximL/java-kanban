@@ -1,18 +1,60 @@
 package model;
 
+
 import java.util.Objects;
 
 public class Task {
 
+    protected Status status;
     private int id;
     private String name;
-    protected Status status;
     private String description;
+
 
     public Task(String name, String description) {
         this.name = name;
         this.status = Status.NEW;
         this.description = description;
+    }
+
+    public Task(int id, String name, Status status, String description, int epicId) {
+
+        this.id = id;
+        this.name = name;
+        this.status = Status.NEW;
+        this.description = description;
+
+    }
+
+    public Task(String name, Status status) {
+        this.name = name;
+        this.status = Status.NEW;
+
+    }
+
+    public Task(int id, String description, Status status) {
+        this.id = id;
+        this.description = description;
+        this.status = Status.NEW;
+    }
+
+    public Task(int id, String name, String description, Status status) {
+
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.status = Status.NEW;
+    }
+
+    public Task(int id, String name, String description) {
+
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
+    public TaskType getType() {
+        return TaskType.TASK;
     }
 
     public int getId() {
@@ -47,6 +89,7 @@ public class Task {
         this.description = description;
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(id);
@@ -57,7 +100,7 @@ public class Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return id == task.id;
+        return id == (task.id);
     }
 
     @Override
@@ -70,3 +113,4 @@ public class Task {
                 '}';
     }
 }
+
