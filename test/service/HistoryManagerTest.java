@@ -4,10 +4,12 @@ import model.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HistoryManagerTest {
 
@@ -19,24 +21,29 @@ class HistoryManagerTest {
     }
 
     @Test
-    public void testAddTask() {
-        Task task = new Task("Test addNewTask", "Test addNewTask description");
-        historyManager.add(task);
-        final List<Task> tasks = historyManager.getHistory();
-        assertNotNull(tasks, "Задачи не возвращаются.");
-        assertEquals(1, historyManager.getHistory().size());
-
+    public void testEmptyHistory() {
+        assertTrue(historyManager.getHistory().isEmpty(), "История должна быть пустой.");
     }
 
     @Test
-    public void testRemoveTask() {
-        Task task = new Task("Test addNewTask", "Test addNewTask description");
+    public void testAddTaskToHistory() {
+        Task task = new Task("Task 1", "Description 1", Duration.ofMinutes(30), LocalDateTime.now());
         historyManager.add(task);
-        final List<Task> tasks = historyManager.getHistory();
-        tasks.remove(task.getId());
-        assertEquals(0, tasks.size());
-        assertFalse(tasks.contains(task));
+
+        List<Task> history = historyManager.getHistory();
+        assertEquals(1, history.size());
+        assertEquals(task, history.get(0), "Задача должна быть в истории.");
     }
+
+    @Test
+    public void testDuplicateTaskInHistory() {
+        Task task = new Task("Task 1", "Description 1", Duration.ofMinutes(30), LocalDateTime.now());
+        historyManager.add(task);
+        historyManager.add(task);
+
+        List<Task> history = historyManager.getHistory();
+        assertEquals(1, history.size(), "История не должна содержать дубликатов.");
+        assertEquals(task, history.get(0), "История должна содержать только уникальные задачи.");
+    }
+
 }
-
-

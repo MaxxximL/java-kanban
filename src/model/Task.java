@@ -1,14 +1,46 @@
 package model;
 
-
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task {
 
     protected Status status;
+    protected Duration duration;
+    protected LocalDateTime startTime;
     private int id;
     private String name;
     private String description;
+
+
+    public Task(int id, String name, Status status, String description, Duration duration, LocalDateTime startTime) {
+        this.id = id;
+        this.name = name;
+        this.status = status;
+        this.description = description;
+        this.duration = duration;
+        this.startTime = startTime;
+    }
+
+    public Task(String name, String description, Duration duration, LocalDateTime startTime) {
+        this.name = name;
+        this.status = Status.NEW;
+        this.description = description;
+        this.duration = duration;
+        this.startTime = startTime;
+
+    }
+
+    public Task(int id, String name, Status status, String description, int epicId, Duration duration, LocalDateTime startTime) {
+
+        this.name = name;
+        this.status = Status.NEW;
+        this.description = description;
+        this.duration = duration;
+        this.startTime = startTime;
+
+    }
 
 
     public Task(String name, String description) {
@@ -53,6 +85,22 @@ public class Task {
         this.description = description;
     }
 
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        if (startTime == null || duration == null) {
+            return null;
+        }
+        return startTime.plus(duration);
+    }
+
+    public Duration getDuration() {
+
+        return duration;
+    }
+
     public TaskType getType() {
         return TaskType.TASK;
     }
@@ -92,15 +140,15 @@ public class Task {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name, status, description);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Task)) return false;
         Task task = (Task) o;
-        return id == (task.id);
+        return id == task.id;
     }
 
     @Override
@@ -113,4 +161,3 @@ public class Task {
                 '}';
     }
 }
-

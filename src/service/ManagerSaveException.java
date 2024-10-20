@@ -9,7 +9,6 @@ public class ManagerSaveException extends RuntimeException {
 
         super(msg, e);
 
-
     }
 
     public static ManagerSaveException saveException(Exception e) {
