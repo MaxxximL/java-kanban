@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +63,7 @@ class TaskManagerTest {
     }
 
 
+
     @Test
     public void testGetAllEpics() {
         List<Epic> epics = new ArrayList<>();
@@ -88,6 +90,7 @@ class TaskManagerTest {
     }
 
 
+
     @Test
     public void testDeleteEpic() {
         Epic epic = new Epic("Epic 1", "Description 1");
@@ -103,6 +106,7 @@ class TaskManagerTest {
         Epic epic = new Epic("Epic 1", "Description");
         taskManager.createEpic(epic);
 
+        // Установим время начала для подзадач, чтобы они не пересекались
         LocalDateTime now = LocalDateTime.now();
         SubTask subTask1 = new SubTask("SubTask 1", "Description 1", epic.getId(), Duration.ofMinutes(10), now);
         SubTask subTask2 = new SubTask("SubTask 2", "Description 2", epic.getId(), Duration.ofMinutes(15), now.plusMinutes(10));
@@ -120,6 +124,7 @@ class TaskManagerTest {
         Epic epic = new Epic("Epic Test", "Description");
         taskManager.createEpic(epic);
 
+        // Установим время начала для подзадач, чтобы они не пересекались
         LocalDateTime now = LocalDateTime.now();
         SubTask subTask1 = new SubTask("SubTask 1", "Description 1", epic.getId(), Duration.ofMinutes(10), now);
         SubTask subTask2 = new SubTask("SubTask 2", "Description 2", epic.getId(), Duration.ofMinutes(15), now.plusMinutes(10));
@@ -149,6 +154,7 @@ class TaskManagerTest {
         Epic epic = new Epic("Epic Test", "Description");
         taskManager.createEpic(epic);
 
+        // Установим время начала для подзадач, чтобы они не пересекались
         LocalDateTime now = LocalDateTime.now();
         SubTask subTask1 = new SubTask("SubTask 1", "Description 1", epic.getId(), Duration.ofMinutes(10), now);
         SubTask subTask2 = new SubTask("SubTask 2", "Description 2", epic.getId(), Duration.ofMinutes(15), now.plusMinutes(10));
@@ -161,6 +167,7 @@ class TaskManagerTest {
         assertEquals(Status.DONE, epic.getStatus());
     }
 
+    // Тесты на создание подзадач с проверкой связей с эпику
     @Test
     public void testCreateSubTaskShouldAssociateWithEpic() {
         Epic epic = new Epic("Epic 1", "Description");
@@ -172,7 +179,6 @@ class TaskManagerTest {
         assertEquals(epic.getId(), createdSubTask.getEpicId(), "Подзадача должна быть связана с эпиком.");
         assertTrue(epic.getSubTasks().contains(createdSubTask), "Эпик должен содержать подзадачу.");
     }
-
     @Test
     public void testEpicStatusUpdateOnSubTaskCreation() {
         Epic epic = new Epic("Epic 1", "Description");
@@ -191,7 +197,7 @@ class TaskManagerTest {
         assertEquals(Status.IN_PROGRESS, epic.getStatus(), "Статус эпика должен оставаться IN_PROGRESS если есть подзадачи NEW и DONE.");
     }
 
-
+    // Тест на пересечения интервалов
     @Test
     public void testCreateTaskWithOverlappingTime() {
         Task task1 = new Task("Task 1", "Description 1", Duration.ofMinutes(30), LocalDateTime.now());
@@ -221,5 +227,3 @@ class TaskManagerTest {
         assertEquals("Подзадача пересекается с существующими задачами или подзадачами.", exception.getMessage());
     }
 }
-
-

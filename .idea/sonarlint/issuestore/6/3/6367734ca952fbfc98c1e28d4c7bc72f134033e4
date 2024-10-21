@@ -1,11 +1,11 @@
 
-c
-java:S2259¡"EA "NullPointerException" could be thrown; "subTask" is nullable here.(¶ŸÀ»8üÖô¦ª2
-o
-java:S1192„"QDefine a constant instead of duplicating this literal " does not exist." 3 times.(„ã£‹8üÖô¦ª2
 e
 java:S2259—"BA "NullPointerException" could be thrown; "epic" is nullable here.(Íà«èıÿÿÿÿ8üÖô¦ª2
+c
+java:S2259¡"EA "NullPointerException" could be thrown; "subTask" is nullable here.(¶ŸÀ»8üÖô¦ª2
 k
 java:S1192?"NDefine a constant instead of duplicating this literal "Epic with ID " 3 times.(ò¿˜ş8¡Êà¦ª2
+o
+java:S1192„"QDefine a constant instead of duplicating this literal " does not exist." 3 times.(„ã£‹8üÖô¦ª2
 `
 java:S2259„"BA "NullPointerException" could be thrown; "task" is nullable here.(„ã£‹8üÖô¦ª2
