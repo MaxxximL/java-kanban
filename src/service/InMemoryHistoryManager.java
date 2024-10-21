@@ -9,92 +9,71 @@ import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    private static Map<Integer, Node> nodeHashMap = new HashMap<>();
+    private final Map<Integer, Node> nodeMap = new HashMap<>();
     private Node head;
     private Node tail;
-    private int size = 0;
-
 
     @Override
     public void add(Task task) {
+        if (task == null) return;
 
-        nodeHashMap.remove(task.getId());
+        if (nodeMap.containsKey(task.getId())) {
+            remove(task.getId());
+        }
+
         linkLast(task);
     }
 
     @Override
     public void remove(int id) {
-
-        Node node = nodeHashMap.remove(id);
-
-        if (node == null) {
-
-            return;
+        Node node = nodeMap.remove(id);
+        if (node != null) {
+            if (node.prev != null) {
+                node.prev.next = node.next;
+            } else {
+                head = node.next;
+            }
+            if (node.next != null) {
+                node.next.prev = node.prev;
+            } else {
+                tail = node.prev;
+            }
         }
-
-        removeNode(node);
     }
-
 
     @Override
     public List<Task> getHistory() {
-
-        return new ArrayList(nodeHashMap.values());
-    }
-
-    private void removeNode(Node node) {
-
-        if (node.prev == null) {
-            // удаляемый узел - голова списка
-
-            node.prev = head;
-
-        } else if (node.next == null) {
-            // удаляемый узел - хвост списка
-
-            node.next = tail;
-
-        } else {
-            // удаляемый узел - середина списка
-
-            node.prev.next = node.next;
-            node.next.prev = node.prev;
+        List<Task> history = new ArrayList<>();
+        Node currentNode = head;
+        while (currentNode != null) {
+            history.add(currentNode.data);
+            currentNode = currentNode.next;
         }
-
+        return history;
     }
 
 
     private void linkLast(Task task) {
-
-        final Node oldTail = tail;
-        final Node newNode = new Node(null, task, oldTail);
-        tail = newNode;
-        if (oldTail == null)
+        Node newNode = new Node(task);
+        if (tail == null) {
             head = newNode;
-        else
-            oldTail.prev = newNode;
-        size++;
+            tail = newNode;
+        } else {
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
+        }
 
-
-        nodeHashMap.put(task.getId(), newNode);
-
+        nodeMap.put(task.getId(), newNode);
     }
 
     private static class Node {
-
         private Node prev;
         private Task data;
         private Node next;
 
-
-        private Node(Node prev, Task data, Node next) {
-
-
+        private Node(Task data) {
             this.data = data;
-            this.next = null;
-            this.prev = null;
-
-
         }
     }
 }
