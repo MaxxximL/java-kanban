@@ -12,5 +12,6 @@ public interface HistoryManager {
 
     List<Task> getHistory();
 
+    List<Task> getPrioritizedTasks();
 
 }
