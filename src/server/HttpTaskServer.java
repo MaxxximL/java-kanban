@@ -43,7 +43,7 @@ public class HttpTaskServer {
             e.printStackTrace();
         }
     }
-    
+
     public void stop() {
     }
 }
