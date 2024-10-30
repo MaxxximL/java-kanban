@@ -30,7 +30,7 @@ public class HttpTaskServer {
 
     public void start() {
         try {
-            HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
+            HttpServer server = HttpServer.create(new InetSocketAddress(8070), 0);
             server.createContext("/tasks", new TaskHandler(taskManager));
             server.createContext("/subtasks", new SubTaskHandler(taskManager));
             server.createContext("/epics", new EpicHandler(taskManager));
@@ -38,7 +38,7 @@ public class HttpTaskServer {
             server.createContext("/prioritized", new PrioritizedHandler(taskManager));
             server.setExecutor(null);
             server.start();
-            System.out.println("Server is started on port 8080");
+            System.out.println("Server is started on port 8070");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -45,7 +45,7 @@ class HttpTaskServerTest {
         String taskJson = HttpTaskServer.getGson().toJson(task);
 
         HttpClient client = HttpClient.newHttpClient();
-        URI url = URI.create("http://localhost:8080/tasks");
+        URI url = URI.create("http://localhost:8070/tasks");
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(url)
                 .POST(HttpRequest.BodyPublishers.ofString(taskJson))
@@ -68,7 +68,7 @@ class HttpTaskServerTest {
         String taskJson = HttpTaskServer.getGson().toJson(task2);
 
         HttpClient client = HttpClient.newHttpClient();
-        URI url = URI.create("http://localhost:8080/tasks");
+        URI url = URI.create("http://localhost:8070/tasks");
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(url)
                 .POST(HttpRequest.BodyPublishers.ofString(taskJson))
@@ -85,7 +85,7 @@ class HttpTaskServerTest {
         manager.createTask(task1);
 
         HttpClient client = HttpClient.newHttpClient();
-        URI url = URI.create("http://localhost:8080/tasks");
+        URI url = URI.create("http://localhost:8070/tasks");
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(url)
                 .GET()
@@ -108,7 +108,7 @@ class HttpTaskServerTest {
 
         assertNotNull(manager.getTaskById(createdTask.getId()), "Task should exist before deletion");
 
-        URI url = URI.create("http://localhost:8080/tasks/" + createdTask.getId());
+        URI url = URI.create("http://localhost:8070/tasks/" + createdTask.getId());
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(url)
                 .DELETE()
@@ -127,7 +127,7 @@ class HttpTaskServerTest {
         Task task = new Task("Fetch me", "I am to be fetched", Duration.ofMinutes(30), LocalDateTime.now());
         Task createdTask = manager.createTask(task);
 
-        URI url = URI.create("http://localhost:8080/tasks/" + createdTask.getId());
+        URI url = URI.create("http://localhost:8070/tasks/" + createdTask.getId());
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(url)
                 .GET()
@@ -165,7 +165,7 @@ class HttpTaskServerEpicTest {
         String epicJson = HttpTaskServer.getGson().toJson(epic);
 
         HttpClient client = HttpClient.newHttpClient();
-        URI url = URI.create("http://localhost:8080/epics");
+        URI url = URI.create("http://localhost:8070/epics");
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(url)
                 .POST(HttpRequest.BodyPublishers.ofString(epicJson))
@@ -185,7 +185,7 @@ class HttpTaskServerEpicTest {
         manager.createEpic(epic);
 
         HttpClient client = HttpClient.newHttpClient();
-        URI url = URI.create("http://localhost:8080/epics");
+        URI url = URI.create("http://localhost:8070/epics");
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(url)
                 .GET()
@@ -207,7 +207,7 @@ class HttpTaskServerEpicTest {
 
         assertNotNull(manager.getEpicById(createdEpic.getId()), "Epic should exist before deletion");
 
-        URI url = URI.create("http://localhost:8080/epics/" + createdEpic.getId());
+        URI url = URI.create("http://localhost:8070/epics/" + createdEpic.getId());
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(url)
                 .DELETE()
@@ -225,7 +225,7 @@ class HttpTaskServerEpicTest {
         Epic epic = new Epic("Fetch me", "I am to be fetched");
         Epic createdEpic = manager.createEpic(epic);
 
-        URI url = URI.create("http://localhost:8080/epics/" + createdEpic.getId());
+        URI url = URI.create("http://localhost:8070/epics/" + createdEpic.getId());
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(url)
                 .GET()
@@ -266,7 +266,7 @@ class HttpTaskServerSubTaskTest {
         String subTaskJson = HttpTaskServer.getGson().toJson(subTask);
 
         HttpClient client = HttpClient.newHttpClient();
-        URI url = URI.create("http://localhost:8080/subtasks");
+        URI url = URI.create("http://localhost:8070/subtasks");
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(url)
                 .POST(HttpRequest.BodyPublishers.ofString(subTaskJson))
@@ -289,7 +289,7 @@ class HttpTaskServerSubTaskTest {
         manager.createSubTask(subTask);
 
         HttpClient client = HttpClient.newHttpClient();
-        URI url = URI.create("http://localhost:8080/subtasks");
+        URI url = URI.create("http://localhost:8070/subtasks");
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(url)
                 .GET()
@@ -314,7 +314,7 @@ class HttpTaskServerSubTaskTest {
 
         assertNotNull(manager.getSubTaskById(createdSubTask.getId()), "SubTask should exist before deletion");
 
-        URI url = URI.create("http://localhost:8080/subtasks/" + createdSubTask.getId());
+        URI url = URI.create("http://localhost:8070/subtasks/" + createdSubTask.getId());
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(url)
                 .DELETE()
