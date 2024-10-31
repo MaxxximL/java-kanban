@@ -8,6 +8,7 @@ import service.TaskManager;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 public class TaskHandler extends BaseHttpHandler {
     private final TaskManager taskManager;
@@ -19,44 +20,71 @@ public class TaskHandler extends BaseHttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        switch (exchange.getRequestMethod()) {
-            case "GET":
-                if (exchange.getRequestURI().getPath().endsWith("/tasks")) {
-                    sendText(exchange, gson.toJson(taskManager.getAllTasks()), 200);
-                } else {
-                    int id = Integer.parseInt(exchange.getRequestURI().getPath().split("/")[2]);
-                    Task task = taskManager.getTaskById(id);
-                    if (task != null) {
-                        sendText(exchange, gson.toJson(task), 200);
-                    } else {
-                        sendNotFound(exchange);
-                    }
-                }
-                break;
-            case "POST":
-                InputStream body = exchange.getRequestBody();
-                String requestBody = new String(body.readAllBytes(), StandardCharsets.UTF_8);
-                Task task = gson.fromJson(requestBody, Task.class);
-                try {
-                    if (task.getId() == 0) {
-                        taskManager.createTask(task);
-                        sendText(exchange, gson.toJson(task), 201);
-                    } else {
-                        taskManager.updateTask(task);
-                        sendText(exchange, gson.toJson(task), 200);
-                    }
-                } catch (IllegalArgumentException e) {
-                    sendHasInteractions(exchange);
-                }
-                break;
-            case "DELETE":
-                int id = Integer.parseInt(exchange.getRequestURI().getPath().split("/")[2]);
-                taskManager.deleteTask(id);
-                sendText(exchange, "Task deleted", 200);
-                break;
-            default:
-                sendNotFound(exchange);
-                break;
+        try {
+            switch (exchange.getRequestMethod()) {
+                case "GET":
+                    handleGet(exchange);
+                    break;
+                case "POST":
+                    handlePost(exchange);
+                    break;
+                case "DELETE":
+                    handleDelete(exchange);
+                    break;
+                default:
+                    sendNotFound(exchange);
+                    break;
+            }
+        } catch (Exception e) {
+            sendError(exchange, e.getMessage());
+        }
+    }
+
+    private void handleGet(HttpExchange exchange) throws IOException {
+        if ("GET".equals(exchange.getRequestMethod())) {
+            List<Task> tasks = taskManager.getAllTasks();
+            sendText(exchange, gson.toJson(tasks), 200);
+        } else {
+            sendNotFound(exchange);
+        }
+    }
+
+
+private void handlePost(HttpExchange exchange) throws IOException {
+        InputStream body = exchange.getRequestBody();
+        String requestBody = new String(body.readAllBytes(), StandardCharsets.UTF_8);
+        Task task = gson.fromJson(requestBody, Task.class);
+
+        if (task.getId() == 0) {
+            taskManager.createTask(task);
+            sendResponse(exchange, gson.toJson(task), 201);
+        } else {
+            taskManager.updateTask(task);
+            sendResponse(exchange, gson.toJson(task), 200);
+        }
+    }
+
+    private void handleDelete(HttpExchange exchange) throws IOException {
+        int id = Integer.parseInt(exchange.getRequestURI().getPath().split("/")[2]);
+        if (taskManager.getTaskById(id) != null) {
+            taskManager.deleteTask(id);
+            sendResponse(exchange, "Task deleted", 200);
+        } else {
+            sendNotFound(exchange);
+        }
+    }
+
+
+    private void sendError(HttpExchange exchange, String errorMessage) throws IOException {
+        sendResponse(exchange, errorMessage, 500);
+
+    }
+
+    private void sendResponse(HttpExchange exchange, String json, int statusCode) throws IOException {
+        exchange.getResponseHeaders().set("Content-Type", "application/json");
+        exchange.sendResponseHeaders(statusCode, json.getBytes().length);
+        try (var outputStream = exchange.getResponseBody()) {
+            outputStream.write(json.getBytes(StandardCharsets.UTF_8));
         }
     }
 }

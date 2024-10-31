@@ -7,8 +7,8 @@ import java.util.Objects;
 public class Task {
 
     protected Status status;
-    protected Duration duration;
-    protected LocalDateTime startTime;
+    public Duration duration;
+    public LocalDateTime startTime;
     private int id;
     private String name;
     private String description;
@@ -18,6 +18,14 @@ public class Task {
         this.id = id;
         this.name = name;
         this.status = status;
+        this.description = description;
+        this.duration = duration;
+        this.startTime = startTime;
+    }
+
+    public Task(int id, String name,  String description, Duration duration, LocalDateTime startTime) {
+        this.id = id;
+        this.name = name;
         this.description = description;
         this.duration = duration;
         this.startTime = startTime;
@@ -83,6 +91,13 @@ public class Task {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+    public Task(String name, String description, Duration duration) {
+
+        this.name = name;
+        this.description = description;
+        this.duration = duration;
     }
 
     public LocalDateTime getStartTime() {

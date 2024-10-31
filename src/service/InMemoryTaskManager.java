@@ -5,6 +5,7 @@ import model.SubTask;
 import model.Task;
 
 import java.time.LocalDateTime;
+
 import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
@@ -31,22 +32,46 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task createTask(Task task) {
-        if (task.getStartTime() != null) {
-            for (Task existingTask : tasks.values()) {
-                if (areOverlapping(existingTask, task)) {
-                    throw new IllegalArgumentException("                                            .");
-                }
-            }
-            task.setId(generateId());
-            tasks.put(task.getId(), task);
-            prioritizedTasks.add(task);
-        }
+        task.setId(generateId());
+        tasks.put(task.getId(), task);
+
         return task;
     }
 
     @Override
     public List<Task> getPrioritizedTasks() {
         return new ArrayList<>(prioritizedTasks);
+    }
+
+    @Override
+    public void deleteTasks() {
+        tasks.clear();
+        prioritizedTasks.clear();
+
+    }
+
+    @Override
+    public void deleteSubtasks() {
+        for (Epic epic : epics.values()) {
+            epic.getSubTasks().clear();
+        }
+        subTasks.clear();
+    }
+
+    @Override
+    public void deleteEpics() {
+        for (Epic epic : epics.values()) {
+
+            for (SubTask subTask : epic.getSubTasks()) {
+                subTasks.remove(subTask.getId());
+            }
+        }
+        epics.clear();
+    }
+
+    @Override
+    public List<Task> getTasks() {
+        return List.of();
     }
 
     @Override
@@ -224,5 +249,23 @@ public class InMemoryTaskManager implements TaskManager {
     private void updateEpicStatus(Epic epic) {
 
         Managers.updatedEpicStatus(epic);
+    }
+
+    public static void main(String[] args) {
+
+        TaskManager taskManager = new InMemoryTaskManager();
+
+        Task task1 = new Task("Task 1", "Description 1");
+        Task task2 = new Task("Task 2", "Description 2");
+
+        taskManager.createTask(task1);
+        taskManager.createTask(task2);
+
+        System.out.println("Task: " + taskManager.getTaskById(1));
+        System.out.println("Task: " + taskManager.getTaskById(2));
+
+        System.out.println("Tasks: " + taskManager.getAllTasks());
+
+
     }
 }

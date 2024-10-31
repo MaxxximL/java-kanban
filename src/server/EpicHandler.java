@@ -6,8 +6,8 @@ import model.Epic;
 import service.TaskManager;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 public class EpicHandler extends BaseHttpHandler {
     private final TaskManager taskManager;
@@ -17,47 +17,78 @@ public class EpicHandler extends BaseHttpHandler {
         this.taskManager = taskManager;
     }
 
+    private void sendServerError(HttpExchange exchange, String message) {
+    }
+
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        switch (exchange.getRequestMethod()) {
-            case "GET":
-                if (exchange.getRequestURI().getPath().endsWith("/epics")) {
-                    sendText(exchange, gson.toJson(taskManager.getAllEpics()), 200);
-                } else {
-                    int id = Integer.parseInt(exchange.getRequestURI().getPath().split("/")[2]);
-                    Epic epic = taskManager.getEpicById(id);
-                    if (epic != null) {
-                        sendText(exchange, gson.toJson(epic), 200);
-                    } else {
-                        sendNotFound(exchange);
-                    }
-                }
-                break;
-            case "POST":
-                InputStream body = exchange.getRequestBody();
-                String requestBody = new String(body.readAllBytes(), StandardCharsets.UTF_8);
-                Epic epic = gson.fromJson(requestBody, Epic.class);
-                try {
-                    if (epic.getId() == 0) {
-                        taskManager.createEpic(epic);
-                        sendText(exchange, gson.toJson(epic), 201);
-                    } else {
-                        taskManager.updateEpic(epic);
-                        sendText(exchange, gson.toJson(epic), 200);
-                    }
-                } catch (IllegalArgumentException e) {
-                    sendHasInteractions(exchange);
-                }
-                break;
-
-            case "DELETE":
-                int id = Integer.parseInt(exchange.getRequestURI().getPath().split("/")[2]);
-                taskManager.deleteEpic(id);
-                sendText(exchange, "Epic deleted", 200);
-                break;
-            default:
-                sendNotFound(exchange);
-                break;
+        try {
+            switch (exchange.getRequestMethod()) {
+                case "GET":
+                    handleGet(exchange);
+                    break;
+                case "POST":
+                    handlePost(exchange);
+                    break;
+                case "DELETE":
+                    handleDelete(exchange);
+                    break;
+                default:
+                    sendNotFound(exchange);
+                    break;
+            }
+        } catch (Exception e) {
+            sendServerError(exchange, e.getMessage());
         }
+    }
+
+
+    private void handleGet(HttpExchange exchange) throws IOException {
+        String path = exchange.getRequestURI().getPath();
+        if (path.endsWith("/epics")) {
+            sendText(exchange, gson.toJson(taskManager.getAllEpics()), 200);
+        } else {
+            int id = Integer.parseInt(path.split("/")[2]);
+            Optional<Epic> epicOptional = Optional.ofNullable(taskManager.getEpicById(id));
+            epicOptional.ifPresentOrElse(
+                    epic -> {
+                        try {
+                            sendText(exchange, gson.toJson(epic), 200);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    },
+                    () -> {
+                        try {
+                            sendNotFound(exchange);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+            );
+        }
+    }
+
+    private void handlePost(HttpExchange exchange) throws IOException {
+        String requestBody = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
+        Epic epic = gson.fromJson(requestBody, Epic.class);
+
+        try {
+            if (epic.getId() == 0) {
+                taskManager.createEpic(epic);
+                sendText(exchange, gson.toJson(epic), 201);
+            } else {
+                taskManager.updateEpic(epic);
+                sendText(exchange, gson.toJson(epic), 200);
+            }
+        } catch (IllegalArgumentException e) {
+            sendHasInteractions(exchange);
+        }
+    }
+
+    private void handleDelete(HttpExchange exchange) throws IOException {
+        int id = Integer.parseInt(exchange.getRequestURI().getPath().split("/")[2]);
+        taskManager.deleteEpic(id);
+        sendText(exchange, "Epic deleted", 200);
     }
 }
