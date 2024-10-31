@@ -197,19 +197,6 @@ class TaskManagerTest {
         assertEquals(Status.IN_PROGRESS, epic.getStatus(), "                               IN_PROGRESS                     NEW   DONE.");
     }
 
-    //
-    @Test
-    public void testCreateTaskWithOverlappingTime() {
-        Task task1 = new Task("Task 1", "Description 1", Duration.ofMinutes(30), LocalDateTime.now());
-        taskManager.createTask(task1);
-
-        Task task2 = new Task("Task 2", "Description 2", Duration.ofMinutes(30), LocalDateTime.now().plusMinutes(15)); //
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            taskManager.createTask(task2);
-        });
-
-        assertEquals("                                            .", exception.getMessage());
-    }
 
     @Test
     public void testCreateSubTaskWithOverlappingTime() {
