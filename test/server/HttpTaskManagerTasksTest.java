@@ -75,13 +75,13 @@ public class HttpTaskManagerTasksTest {
 
         HttpClient client = HttpClient.newHttpClient();
 
-            URI url = URI.create("http://localhost:8080/tasks");
-            HttpRequest request = HttpRequest.newBuilder().uri(url)
-                    .POST(HttpRequest.BodyPublishers.ofString(taskJson))
-                    .build();
+        URI url = URI.create("http://localhost:8080/tasks");
+        HttpRequest request = HttpRequest.newBuilder().uri(url)
+                .POST(HttpRequest.BodyPublishers.ofString(taskJson))
+                .build();
 
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            assertEquals(201, response.statusCode());
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        assertEquals(201, response.statusCode());
 
 
         List<Task> tasksFromManager = manager.getTasks();
@@ -99,14 +99,14 @@ public class HttpTaskManagerTasksTest {
         SubTask subtask = new SubTask("Subtask to create title", "Subtask to create description", epicId);
         String subtaskJson = gson.toJson(subtask);
 
-            HttpClient client = HttpClient.newHttpClient();
-            URI url = URI.create("http://localhost:8080/subtasks");
-            HttpRequest request = HttpRequest.newBuilder().uri(url)
-                    .POST(HttpRequest.BodyPublishers.ofString(subtaskJson))
-                    .build();
+        HttpClient client = HttpClient.newHttpClient();
+        URI url = URI.create("http://localhost:8080/subtasks");
+        HttpRequest request = HttpRequest.newBuilder().uri(url)
+                .POST(HttpRequest.BodyPublishers.ofString(subtaskJson))
+                .build();
 
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            assertEquals(201, response.statusCode());
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        assertEquals(201, response.statusCode());
 
 
         List<SubTask> subtasksFromManager = manager.getAllSubTasks();
@@ -128,14 +128,14 @@ public class HttpTaskManagerTasksTest {
         subtask.setTitle("Subtask updated!");
         String subtaskJson = gson.toJson(subtask);
 
-            HttpClient client = HttpClient.newHttpClient();
-            URI url = URI.create("http://localhost:8080/subtasks");
-            HttpRequest request = HttpRequest.newBuilder().uri(url)
-                    .POST(HttpRequest.BodyPublishers.ofString(subtaskJson))
-                    .build();
+        HttpClient client = HttpClient.newHttpClient();
+        URI url = URI.create("http://localhost:8080/subtasks");
+        HttpRequest request = HttpRequest.newBuilder().uri(url)
+                .POST(HttpRequest.BodyPublishers.ofString(subtaskJson))
+                .build();
 
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            assertEquals(201, response.statusCode());
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        assertEquals(201, response.statusCode());
 
 
         List<SubTask> subtasksFromManager = manager.getAllSubTasks();
@@ -150,14 +150,14 @@ public class HttpTaskManagerTasksTest {
         Epic epic = new Epic("Epic to create title", "Epic to create description");
         String epicJson = gson.toJson(epic);
 
-            HttpClient client = HttpClient.newHttpClient();
-            URI url = URI.create("http://localhost:8080/epics");
-            HttpRequest request = HttpRequest.newBuilder().uri(url)
-                    .POST(HttpRequest.BodyPublishers.ofString(epicJson))
-                    .build();
+        HttpClient client = HttpClient.newHttpClient();
+        URI url = URI.create("http://localhost:8080/epics");
+        HttpRequest request = HttpRequest.newBuilder().uri(url)
+                .POST(HttpRequest.BodyPublishers.ofString(epicJson))
+                .build();
 
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            assertEquals(201, response.statusCode());
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        assertEquals(201, response.statusCode());
 
 
         List<Epic> epicsFromManager = manager.getAllEpics();
