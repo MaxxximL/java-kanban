@@ -15,6 +15,7 @@ public class HttpTaskServer {
 
     public HttpTaskServer(TaskManager taskManager) {
         this.taskManager = taskManager;
+
     }
 
     public static void main(String[] args) {
@@ -23,13 +24,6 @@ public class HttpTaskServer {
         server.start();
     }
 
-    public static Gson getGson() {
-        return new GsonBuilder()
-                .registerTypeAdapter(Duration.class, new DurationAdapter())
-                .setPrettyPrinting()
-                .excludeFieldsWithoutExposeAnnotation()
-                .create();
-    }
 
     public void start() {
         try {

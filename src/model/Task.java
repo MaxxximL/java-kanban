@@ -12,7 +12,11 @@ public class Task {
     private int id;
     private String name;
     private String description;
+    public String title;
 
+    public Task(String title) {
+        this.title = title;
+    }
 
     public Task(int id, String name, Status status, String description, Duration duration, LocalDateTime startTime) {
         this.id = id;
@@ -174,5 +178,15 @@ public class Task {
                 ", status=" + status +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    public void setTitle(String s) {
+
+        this.title = s;
+    }
+
+    public String getTitle() {
+
+        return title;
     }
 }

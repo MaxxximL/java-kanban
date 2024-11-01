@@ -49,4 +49,7 @@ public interface TaskManager {
     void deleteEpics();
 
     List<Task> getTasks();
+
+    int addNewEpic(Epic dummyEpic);
+
 }

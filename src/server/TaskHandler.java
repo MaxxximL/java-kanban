@@ -40,7 +40,8 @@ public class TaskHandler extends BaseHttpHandler {
         }
     }
 
-    private void handleGet(HttpExchange exchange) throws IOException {
+    
+    public void handleGet(HttpExchange exchange) throws IOException {
         if ("GET".equals(exchange.getRequestMethod())) {
             List<Task> tasks = taskManager.getAllTasks();
             sendText(exchange, gson.toJson(tasks), 200);
@@ -48,6 +49,8 @@ public class TaskHandler extends BaseHttpHandler {
             sendNotFound(exchange);
         }
     }
+
+
 
 
 private void handlePost(HttpExchange exchange) throws IOException {

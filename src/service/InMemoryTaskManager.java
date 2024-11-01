@@ -1,9 +1,13 @@
 package service;
 
+import com.sun.net.httpserver.HttpExchange;
 import model.Epic;
 import model.SubTask;
 import model.Task;
+import server.BaseHttpHandler;
+import server.TaskHandler;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -70,7 +74,12 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public List<Task> getTasks() {
-        return List.of();
+        return new ArrayList<>(tasks.values());
+    }
+
+    @Override
+    public int addNewEpic(Epic dummyEpic) {
+        return 0;
     }
 
     @Override
