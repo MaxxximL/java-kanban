@@ -40,7 +40,7 @@ public class TaskHandler extends BaseHttpHandler {
         }
     }
 
-    
+
     public void handleGet(HttpExchange exchange) throws IOException {
         if ("GET".equals(exchange.getRequestMethod())) {
             List<Task> tasks = taskManager.getAllTasks();
@@ -51,9 +51,7 @@ public class TaskHandler extends BaseHttpHandler {
     }
 
 
-
-
-private void handlePost(HttpExchange exchange) throws IOException {
+    private void handlePost(HttpExchange exchange) throws IOException {
         InputStream body = exchange.getRequestBody();
         String requestBody = new String(body.readAllBytes(), StandardCharsets.UTF_8);
         Task task = gson.fromJson(requestBody, Task.class);
