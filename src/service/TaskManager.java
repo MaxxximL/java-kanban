@@ -40,5 +40,16 @@ public interface TaskManager {
 
     List<Task> getHistory();
 
+    List<Task> getPrioritizedTasks();
+
+    void deleteTasks();
+
+    void deleteSubtasks();
+
+    void deleteEpics();
+
+    List<Task> getTasks();
+
+    int addNewEpic(Epic dummyEpic);
 
 }

@@ -10,7 +10,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
@@ -47,29 +47,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             throw new ManagerSaveException("Error loading from file", e);
         }
         return taskManager;
-    }
-
-    public static void main(String[] args) {
-        Path file = Paths.get("tasks.csv");
-        FileBackedTaskManager taskManager = FileBackedTaskManager.loadFromFile(file);
-
-        Task task1 = new Task("Task 1", "Description 1");
-        Task task2 = new Task("Task 2", "Description 2");
-        Epic epic = new Epic("Epic 1", "Description 1");
-        SubTask subTask = new SubTask("SubTask 1", "Description 1", epic.getId());
-
-
-        taskManager.createTask(task1);
-        taskManager.createTask(task2);
-        taskManager.createEpic(epic);
-        taskManager.createSubTask(subTask);
-
-
-        System.out.println("Tasks: " + taskManager.getAllTasks());
-        System.out.println("Epics: " + taskManager.getAllEpics());
-        System.out.println("SubTasks: " + taskManager.getAllSubTasks());
-
-
     }
 
     @Override
