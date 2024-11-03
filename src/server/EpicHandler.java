@@ -13,7 +13,7 @@ public class EpicHandler extends BaseHttpHandler {
     private final TaskManager taskManager;
     private final Gson gson = new Gson();
 
-    public EpicHandler(TaskManager taskManager) {
+    public EpicHandler(TaskManager taskManager, Gson gson) {
         this.taskManager = taskManager;
     }
 

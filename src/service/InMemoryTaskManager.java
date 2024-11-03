@@ -14,7 +14,7 @@ public class InMemoryTaskManager implements TaskManager {
     protected Map<Integer, SubTask> subTasks = new HashMap<>();
     protected int idCounter = 0;
     protected SortedSet<Task> prioritizedTasks = new TreeSet<>(Comparator.comparing(Task::getStartTime));
-    private HistoryManager historyManager = Managers.getDefaultHistory();
+    private final HistoryManager historyManager = Managers.getDefaultHistory();
 
     private int generateId() {
         return ++idCounter;
