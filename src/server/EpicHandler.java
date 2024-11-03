@@ -11,10 +11,11 @@ import java.util.Optional;
 
 public class EpicHandler extends BaseHttpHandler {
     private final TaskManager taskManager;
-    private final Gson gson = new Gson();
+    private Gson gson = new Gson();
 
     public EpicHandler(TaskManager taskManager, Gson gson) {
         this.taskManager = taskManager;
+        this.gson = gson;
     }
 
     private void sendServerError(HttpExchange exchange, String message) {

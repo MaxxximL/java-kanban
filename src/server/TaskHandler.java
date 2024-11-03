@@ -12,10 +12,11 @@ import java.util.List;
 
 public class TaskHandler extends BaseHttpHandler {
     private final TaskManager taskManager;
-    private final Gson gson = new Gson();
+    private  Gson gson = new Gson();
 
     public TaskHandler(TaskManager taskManager, Gson gson) {
         this.taskManager = taskManager;
+        this.gson = gson;
     }
 
     @Override

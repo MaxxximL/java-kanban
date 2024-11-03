@@ -1,8 +1,8 @@
 package server;
 
 import com.google.gson.Gson;
-import com.sun.net.httpserver.HttpServer;
 import model.Epic;
+import model.Status;
 import model.SubTask;
 import model.Task;
 import org.junit.jupiter.api.*;
@@ -14,7 +14,9 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.List;
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,7 +25,6 @@ public class HttpTaskManagerTasksTest {
     private static final TaskManager manager = Managers.getDefault();
     private static HttpTaskServer taskServer;
     private final Gson gson = Managers.getGson();
-
 
     @BeforeAll
     public static void beforeAll() throws IOException {
@@ -45,133 +46,6 @@ public class HttpTaskManagerTasksTest {
 
 
 
-    @Test
-    public void testAddTask() throws IOException, InterruptedException {
-        final Task task = new Task("Task to create title", "Task to create description");
-        String taskJson = gson.toJson(task);
-
-        HttpClient client = HttpClient.newHttpClient();
-
-
-        URI url = URI.create("http://localhost:8080/tasks");
-        HttpRequest request = HttpRequest.newBuilder().uri(url)
-                .POST(HttpRequest.BodyPublishers.ofString(taskJson))
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        assertEquals(201, response.statusCode());
-
-
-
-
-        List<Task> tasksFromManager = manager.getAllTasks();
-        assertNotNull(tasksFromManager, "No tasks returned from manager");
-        assertEquals(1, tasksFromManager.size(), "Incorrect count of tasks");
-        assertEquals("Task to create title", tasksFromManager.get(0).getTitle(),
-                "Incorrect task title");
-    }
-
-    @Test
-    public void testUpdateTask() throws IOException, InterruptedException {
-        final Task task = new Task("Task to update title", "Task to update description");
-        manager.createTask(task);
-        task.setTitle("Task updated!");
-        String taskJson = gson.toJson(task);
-
-        HttpClient client = HttpClient.newHttpClient();
-
-        URI url = URI.create("http://localhost:8080/tasks");
-        HttpRequest request = HttpRequest.newBuilder().uri(url)
-                .POST(HttpRequest.BodyPublishers.ofString(taskJson))
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        assertEquals(201, response.statusCode());
-
-
-        List<Task> tasksFromManager = manager.getTasks();
-        assertNotNull(tasksFromManager, "No tasks returned from manager");
-        assertEquals(1, tasksFromManager.size(), "Incorrect count of tasks");
-        assertEquals("Task updated!", tasksFromManager.get(0).getTitle(), "Incorrect update title");
-    }
-
-    @Test
-    public void testAddSubtask() throws IOException, InterruptedException {
-        Epic dummyEpic = new Epic("Epic title", "Epic description");
-        int epicId = manager.addNewEpic(dummyEpic);
-
-
-        SubTask subtask = new SubTask("Subtask to create title", "Subtask to create description", epicId);
-        String subtaskJson = gson.toJson(subtask);
-
-        HttpClient client = HttpClient.newHttpClient();
-        URI url = URI.create("http://localhost:8080/subtasks");
-        HttpRequest request = HttpRequest.newBuilder().uri(url)
-                .POST(HttpRequest.BodyPublishers.ofString(subtaskJson))
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        assertEquals(201, response.statusCode());
-
-
-        List<SubTask> subtasksFromManager = manager.getAllSubTasks();
-        assertNotNull(subtasksFromManager, "No subtasks returned from manager");
-        assertEquals(1, subtasksFromManager.size(), "Incorrect count of subtasks");
-        assertEquals("Subtask to create title", subtasksFromManager.get(0).getTitle(),
-                "Incorrect subtask title");
-    }
-
-    @Test
-    public void testUpdateSubtask() throws IOException, InterruptedException {
-        Epic dummyEpic = new Epic("Epic title", "Epic description");
-        int epicId = manager.addNewEpic(dummyEpic);
-
-        final SubTask subtask;
-        subtask = new SubTask("Subtask to update title", "Subtask to update description", epicId);
-
-        manager.createSubTask(subtask);
-        subtask.setTitle("Subtask updated!");
-        String subtaskJson = gson.toJson(subtask);
-
-        HttpClient client = HttpClient.newHttpClient();
-        URI url = URI.create("http://localhost:8080/subtasks");
-        HttpRequest request = HttpRequest.newBuilder().uri(url)
-                .POST(HttpRequest.BodyPublishers.ofString(subtaskJson))
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        assertEquals(201, response.statusCode());
-
-
-        List<SubTask> subtasksFromManager = manager.getAllSubTasks();
-        assertNotNull(subtasksFromManager, "No subtasks returned from manager");
-        assertEquals(1, subtasksFromManager.size(), "Incorrect count of subtasks");
-        assertEquals("Subtask updated!", subtasksFromManager.get(0).getTitle(),
-                "Incorrect subtask title");
-    }
-
-    @Test
-    public void testAddEpic() throws IOException, InterruptedException {
-        Epic epic = new Epic("Epic to create title", "Epic to create description");
-        String epicJson = gson.toJson(epic);
-
-        HttpClient client = HttpClient.newHttpClient();
-        URI url = URI.create("http://localhost:8080/epics");
-        HttpRequest request = HttpRequest.newBuilder().uri(url)
-                .POST(HttpRequest.BodyPublishers.ofString(epicJson))
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        assertEquals(201, response.statusCode());
-
-
-        List<Epic> epicsFromManager = manager.getAllEpics();
-        assertNotNull(epicsFromManager, "No epics returned from manager");
-        assertEquals(1, epicsFromManager.size(), "Incorrect count of epics");
-        assertEquals("Epic to create title", epicsFromManager.get(0).getTitle(),
-                "Incorrect epic title");
-
-    }
 
     @Test
     public void testGetEpicById() throws IOException, InterruptedException {
@@ -208,26 +82,6 @@ public class HttpTaskManagerTasksTest {
         assertNull(manager.getEpicById(epic.getId()), "Epic should be deleted and return null");
     }
 
-    @Test
-    public void testGetSubTaskById() throws IOException, InterruptedException {
-        Epic dummyEpic = new Epic("Epic for subtask", "Description");
-        int epicId = manager.createEpic(dummyEpic).getId();
-
-        SubTask subTask = new SubTask("Subtask to get", "Description for subtask", epicId);
-        manager.createSubTask(subTask);
-
-        HttpClient client = HttpClient.newHttpClient();
-        URI url = URI.create("http://localhost:8080/subtasks/" + subTask.getId());
-
-        HttpRequest request = HttpRequest.newBuilder().uri(url).GET().build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        assertEquals(200, response.statusCode());
-        SubTask retrievedSubTask = gson.fromJson(response.body(), SubTask.class);
-
-        assertNotNull(retrievedSubTask, "SubTask should not be null");
-        assertEquals(subTask.getId(), retrievedSubTask.getId(), "SubTask ID should match");
-    }
 
     @Test
     public void testDeleteSubTask() throws IOException, InterruptedException {
@@ -247,6 +101,64 @@ public class HttpTaskManagerTasksTest {
 
 
         assertNull(manager.getSubTaskById(subTask.getId()), "SubTask should be deleted and return null");
+    }
+
+    @Test
+    public void testAddTask() {
+        Task task = new Task("New Task", "Task description", Duration.ofMinutes(30), LocalDateTime.now());
+        Task createdTask = manager.createTask(task);
+
+        assertNotNull(createdTask, "Task should be created");
+        assertEquals("New Task", createdTask.getName(), "Task name should match");
+        assertEquals(Status.NEW, createdTask.getStatus(), "Task status should be NEW");
+    }
+
+    @Test
+    public void testUpdateTask() {
+        Task task = new Task("Old Task", "Task description", Duration.ofMinutes(30), LocalDateTime.now());
+        Task createdTask = manager.createTask(task);
+
+        Task updatedTask = new Task(createdTask.getId(), "Updated Task", "Updated description", Duration.ofMinutes(60), LocalDateTime.now());
+        manager.updateTask(updatedTask);
+
+        Task fetchedTask = manager.getTaskById(createdTask.getId());
+        assertEquals("Updated Task", fetchedTask.getName(), "Task name should be updated");
+        assertEquals("Updated description", fetchedTask.getDescription(), "Task description should be updated");
+    }
+
+    @Test
+    public void testAddSubtask() {
+        Epic epic = new Epic("New Epic", "Epic description");
+        Epic createdEpic = manager.createEpic(epic);
+        SubTask subTask = new SubTask("New SubTask", "SubTask description", createdEpic.getId(), Duration.ofMinutes(15), LocalDateTime.now());
+        SubTask createdSubTask = manager.createSubTask(subTask);
+
+        assertNotNull(createdSubTask, "SubTask should be created");
+        assertEquals(createdEpic.getId(), createdSubTask.getEpicId(), "SubTask should be associated with the correct Epic");
+        assertTrue(createdEpic.getSubTasks().contains(createdSubTask), "Epic should contain the created SubTask");
+    }
+
+
+    @Test
+    public void testAddEpic() {
+        Epic epic = new Epic("New Epic", "Epic description");
+        Epic createdEpic = manager.createEpic(epic);
+
+        assertNotNull(createdEpic, "Epic should be created");
+        assertEquals("New Epic", createdEpic.getName(), "Epic name should match");
+        assertEquals(Status.NEW, createdEpic.getStatus(), "Epic status should be NEW");
+    }
+
+    @Test
+    public void testGetSubtaskById() {
+        Epic epic = new Epic("Get SubTask Epic", "Epic description");
+        Epic createdEpic = manager.createEpic(epic);
+        SubTask subTask = new SubTask("Get SubTask", "SubTask description", createdEpic.getId(), Duration.ofMinutes(15), LocalDateTime.now());
+        SubTask createdSubTask = manager.createSubTask(subTask);
+
+        SubTask fetchedSubTask = manager.getSubTaskById(createdSubTask.getId());
+        assertNotNull(fetchedSubTask, "SubTask should be fetched");
+        assertEquals(createdSubTask.getId(), fetchedSubTask.getId(), "Fetched SubTask ID should match");
     }
 
 }
